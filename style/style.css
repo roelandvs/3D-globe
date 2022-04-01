@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100vw;
+    background-color: #00141F;
+    color: #fff;
+}
+
+.header-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    overflow: hidden;
+}
+
+.header-text {
+    width: 100%;
+}
+
+.webgl {
+    width: 100%;
+    height: auto;
+    outline: none;
+}
