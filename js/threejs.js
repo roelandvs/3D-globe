@@ -1,5 +1,6 @@
 import * as THREE from "./threejs/three.module.js";
 import { OrbitControls } from "./threejs/OrbitControls.js";
+// import { Interaction } from "./threejs/three.interaction.js";
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
