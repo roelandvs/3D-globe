@@ -1,6 +1,6 @@
-import * as THREE from "./threejs/three.module.js";
-import { OrbitControls } from "./threejs/OrbitControls.js";
-// import { Interaction } from "./threejs/three.interaction.js";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { Interaction } from "./threejs/three.interaction.js";
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
@@ -17,8 +17,9 @@ globe.rotateY(5.2);
 globe.rotateX(0.2);
 
 // Materials
+const texture = new THREE.TextureLoader().load("./blue-world.1605d5f5.png");
 const material = new THREE.MeshPhongMaterial({
-    map: THREE.ImageUtils.loadTexture("../img/blue-world.png"),
+    map: texture,
     transparent: true,
 });
 const blueMaterial = new THREE.MeshBasicMaterial({ color: 0x01cbe1 });
@@ -88,6 +89,14 @@ controls.update();
 
 canvas.style.width = "100%";
 canvas.style.height = "auto";
+
+//Interaction
+const interaction = new THREE.Interaction(renderer, scene, camera);
+atlanticPatch.cursor = "pointer";
+atlanticPatch.on("click", function (ev) {
+    const body = document.querySelector("body");
+    body.classList.add("atlantic");
+});
 
 /**
  * Animate
