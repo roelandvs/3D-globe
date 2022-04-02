@@ -9,6 +9,7 @@ body {
     width: 100vw;
     background-color: #00141F;
     color: #fff;
+    font-family: proxima-nova;
 }
 
 .header-container {

@@ -67,10 +67,6 @@ camera.position.y = 0;
 camera.position.z = 2;
 scene.add(camera);
 
-// Controls
-// const controls = new OrbitControls(camera, canvas);
-// controls.enableDamping = true;
-
 /**
  * Renderer
  */
@@ -91,21 +87,13 @@ controls.enableDamping = true; // an animation loop is required when either damp
 controls.dampingFactor = 0.05;
 controls.update();
 
+canvas.style.width = "100%";
+canvas.style.height = "auto";
+
 /**
  * Animate
  */
-
-const clock = new THREE.Clock();
-
 const tick = () => {
-    const elapsedTime = clock.getElapsedTime();
-
-    // Update objects
-    // sphere.rotation.y = 0.2 * elapsedTime;
-
-    // Update Orbital Controls
-    // controls.update();
-
     // Render
     renderer.render(scene, camera);
 
