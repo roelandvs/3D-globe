@@ -1,8 +1,16 @@
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
+/* Variables
+--blue: #01CBE1;
+--dark-blue: #01283C;
+--darker-blue: #00141F; 
+--offwhite:
+*/
 
 html,
 body {
@@ -10,6 +18,15 @@ body {
     background-color: #00141F;
     color: #fff;
     font-family: proxima-nova;
+    line-height: 1.4;
+}
+
+main {
+    padding: 4em 3em;
+}
+
+p {
+    font-weight: 300;
 }
 
 .header-container {
@@ -19,12 +36,47 @@ body {
     overflow: hidden;
 }
 
-.header-text {
-    width: 100%;
-}
-
 .webgl {
     width: 100%;
     height: auto;
     outline: none;
+}
+
+/* Text */
+.explore-img {
+    width: 100%;
+    max-width: 20em;
+}
+.intro-text {
+    font-weight: 300;
+    margin-top: 1em;
+}
+
+/* Patch Text */
+.patch-text {
+    background-color: #01283C;
+    padding: 2em;
+    margin-top: 10em;
+}
+.patch-text h2 {
+    text-transform: uppercase;
+    color: #01CBE1;
+    font-size: 2em;
+    font-weight: 900;
+    line-height: 1;
+}
+.patch-text p {
+    margin-top: 1.3em;
+    font-size: 0.9em;
+}
+.patch-text button {
+    margin-top: 2em;
+    padding: 0.8em 1.5em;
+    background-color: #01CBE1;
+    border: none;
+    font-size: 0.9em;
+    transition: background-color 0.4s;
+}
+.patch-text button:hover {
+    background-color: #5befff;
 }

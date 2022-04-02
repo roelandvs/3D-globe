@@ -1,10 +1,5 @@
 import * as THREE from "./threejs/three.module.js";
 import { OrbitControls } from "./threejs/OrbitControls.js";
-// import { GLTFLoader } from "./threejs/GLTFLoader.js";
-// import * as dat from "dat.gui";
-
-// Debug
-// const gui = new dat.GUI();
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
@@ -15,19 +10,37 @@ scene.background = null;
 
 // Object
 const globe = new THREE.SphereBufferGeometry(0.015, 64, 64);
+const bigCircle = new THREE.CircleGeometry(0.001, 32);
+const smallCircle = new THREE.CircleGeometry(0.0002, 32);
+globe.rotateY(5.2);
+globe.rotateX(0.2);
 
 // Materials
 const material = new THREE.MeshPhongMaterial({
-    map: THREE.ImageUtils.loadTexture("../Earth_Diffuse_6K.jpg"),
+    map: THREE.ImageUtils.loadTexture("../img/blue-world.png"),
     transparent: true,
 });
+const blueMaterial = new THREE.MeshBasicMaterial({ color: 0x01cbe1 });
+const greenMaterial = new THREE.MeshBasicMaterial({ color: 0xc7e44f });
 
 // Mesh
 const sphere = new THREE.Mesh(globe, material);
+const atlanticPatch = new THREE.Mesh(bigCircle, blueMaterial);
+const otherPatch = new THREE.Mesh(bigCircle, blueMaterial);
+const riverItem = new THREE.Mesh(smallCircle, greenMaterial);
+
+atlanticPatch.position.set(-0.003, 0.005, 0.015);
+otherPatch.position.set(0.003, -0.01, 0.012);
+riverItem.position.set(0.008, 0, 0.013);
+
+sphere.add(atlanticPatch);
+sphere.add(otherPatch);
+sphere.add(riverItem);
+
 scene.add(sphere);
 
 // Lights
-const light = new THREE.AmbientLight(0xffffff, 1);
+const light = new THREE.AmbientLight(0xffffff, 1.1);
 scene.add(light);
 
 /**
@@ -38,24 +51,9 @@ const sizes = {
     height: window.innerHeight,
 };
 
-// window.addEventListener("resize", () => {
-//     // Update sizes
-//     sizes.width = window.innerHeight;
-//     sizes.height = window.innerHeight;
-
-//     // Update camera
-//     camera.aspect = 1;
-//     camera.updateProjectionMatrix();
-
-//     // Update renderer
-//     renderer.setSize(sizes.width, sizes.height);
-//     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-// });
-
 /**
  * Camera
  */
-// Base camera
 const camera = new THREE.PerspectiveCamera(
     1,
     sizes.width / sizes.height,
@@ -84,7 +82,7 @@ renderer.setClearColor(0xffffff, 0);
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableZoom = false;
 controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-controls.dampingFactor = 0.05;
+controls.rotateSpeed = 0.4;
 controls.update();
 
 canvas.style.width = "100%";
@@ -102,6 +100,10 @@ const tick = () => {
 
     //Update controls
     controls.update();
+
+    atlanticPatch.lookAt(camera.position);
+    otherPatch.lookAt(camera.position);
+    riverItem.lookAt(camera.position);
 };
 
 tick();
