@@ -1,7 +1,7 @@
-import * as THREE from "./threejs/three.module.js";
-import { OrbitControls } from "./threejs/OrbitControls.js";
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Interaction } from "./threejs/three.interaction.js";
-// import earthImage from "../img/blue-world.png";
+import earthImage from "../img/blue-world.png";
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
@@ -18,7 +18,7 @@ globe.rotateY(5.2);
 globe.rotateX(0.2);
 
 // Materials
-const texture = new THREE.TextureLoader().load("../img/blue-world.png");
+const texture = new THREE.TextureLoader().load(earthImage);
 const material = new THREE.MeshPhongMaterial({
     map: texture,
     transparent: true,
@@ -92,7 +92,7 @@ canvas.style.width = "100%";
 canvas.style.height = "auto";
 
 //Interaction
-const interaction = new THREE.Interaction(renderer, scene, camera);
+// const interaction = new THREE.Interaction(renderer, scene, camera);
 atlanticPatch.cursor = "pointer";
 atlanticPatch.on("click", function (ev) {
     // const body = document.querySelector("body");
