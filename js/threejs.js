@@ -2,6 +2,7 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Interaction } from "./threejs/three.interaction.js";
 import earthImage from "../img/blue-world.png";
+// import earthImage from "../img/earth-patches-dim.png";
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");

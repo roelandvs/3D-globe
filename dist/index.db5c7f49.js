@@ -515,39 +515,40 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"JCuyv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _threeModuleJs = require("./threejs/three.module.js");
-var _orbitControlsJs = require("./threejs/OrbitControls.js");
+var _three = require("three");
+var _orbitControls = require("three/examples/jsm/controls/OrbitControls");
 var _threeInteractionJs = require("./threejs/three.interaction.js");
 var _blueWorldPng = require("../img/blue-world.png");
 var _blueWorldPngDefault = parcelHelpers.interopDefault(_blueWorldPng);
+// import earthImage from "../img/earth-patches-dim.png";
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
 // Scene
-const scene = new _threeModuleJs.Scene();
+const scene = new _three.Scene();
 scene.background = null;
 // Object
-const globe = new _threeModuleJs.SphereBufferGeometry(0.015, 64, 64);
-const bigCircle = new _threeModuleJs.CircleGeometry(0.001, 32);
-const smallCircle = new _threeModuleJs.CircleGeometry(0.0002, 32);
+const globe = new _three.SphereBufferGeometry(0.015, 64, 64);
+const bigCircle = new _three.CircleGeometry(0.001, 32);
+const smallCircle = new _three.CircleGeometry(0.0002, 32);
 globe.rotateY(5.2);
 globe.rotateX(0.2);
 // Materials
-const texture = new _threeModuleJs.TextureLoader().load(_blueWorldPngDefault.default);
-const material = new _threeModuleJs.MeshPhongMaterial({
+const texture = new _three.TextureLoader().load(_blueWorldPngDefault.default);
+const material = new _three.MeshPhongMaterial({
     map: texture,
     transparent: true
 });
-let blueMaterial = new _threeModuleJs.MeshBasicMaterial({
+let blueMaterial = new _three.MeshBasicMaterial({
     color: 117729
 });
-const greenMaterial = new _threeModuleJs.MeshBasicMaterial({
+const greenMaterial = new _three.MeshBasicMaterial({
     color: 13100111
 });
 // Mesh
-const sphere = new _threeModuleJs.Mesh(globe, material);
-const atlanticPatch = new _threeModuleJs.Mesh(bigCircle, blueMaterial);
-const otherPatch = new _threeModuleJs.Mesh(bigCircle, blueMaterial);
-const riverItem = new _threeModuleJs.Mesh(smallCircle, greenMaterial);
+const sphere = new _three.Mesh(globe, material);
+const atlanticPatch = new _three.Mesh(bigCircle, blueMaterial);
+const otherPatch = new _three.Mesh(bigCircle, blueMaterial);
+const riverItem = new _three.Mesh(smallCircle, greenMaterial);
 atlanticPatch.position.set(-0.003, 0.005, 0.015);
 otherPatch.position.set(0.003, -0.01, 0.012);
 riverItem.position.set(0.008, 0, 0.013);
@@ -556,7 +557,7 @@ sphere.add(otherPatch);
 sphere.add(riverItem);
 scene.add(sphere);
 // Lights
-const light = new _threeModuleJs.AmbientLight(16777215, 1.3);
+const light = new _three.AmbientLight(16777215, 1.3);
 scene.add(light);
 /**
  * Sizes
@@ -566,14 +567,14 @@ scene.add(light);
 };
 /**
  * Camera
- */ const camera = new _threeModuleJs.PerspectiveCamera(1, sizes.width / sizes.height, 0.1, 100);
+ */ const camera = new _three.PerspectiveCamera(1, sizes.width / sizes.height, 0.1, 100);
 camera.position.x = 0;
 camera.position.y = 0;
 camera.position.z = 2;
 scene.add(camera);
 /**
  * Renderer
- */ const renderer = new _threeModuleJs.WebGLRenderer({
+ */ const renderer = new _three.WebGLRenderer({
     canvas: canvas,
     alpha: true
 });
@@ -582,7 +583,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setClearColor(16777215, 0);
 /**
  * Controls
- */ const controls = new _orbitControlsJs.OrbitControls(camera, renderer.domElement);
+ */ const controls = new _orbitControls.OrbitControls(camera, renderer.domElement);
 controls.enableZoom = false;
 controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
 controls.rotateSpeed = 0.4;
@@ -590,7 +591,7 @@ controls.update();
 canvas.style.width = "100%";
 canvas.style.height = "auto";
 //Interaction
-const interaction = new _threeModuleJs.Interaction(renderer, scene, camera);
+// const interaction = new THREE.Interaction(renderer, scene, camera);
 atlanticPatch.cursor = "pointer";
 atlanticPatch.on("click", function(ev) {
     // const body = document.querySelector("body");
@@ -612,638 +613,7 @@ atlanticPatch.on("click", function(ev) {
 };
 tick();
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../img/blue-world.png":"11KNn","./threejs/three.interaction.js":"35dWp","./threejs/OrbitControls.js":"YjDDi","./threejs/three.module.js":"bntYB"}],"gkKU3":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, '__esModule', {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
-},{}],"11KNn":[function(require,module,exports) {
-module.exports = require('./helpers/bundle-url').getBundleURL('4tORd') + "blue-world.1605d5f5.png" + "?" + Date.now();
-
-},{"./helpers/bundle-url":"lgJ39"}],"lgJ39":[function(require,module,exports) {
-"use strict";
-var bundleURL = {};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return '/';
-}
-function getBaseURL(url) {
-    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
-} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
-    if (!matches) throw new Error('Origin not found');
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"35dWp":[function(require,module,exports) {
-var _threeModuleJs = require("./three.module.js");
-(function(t1, o1) {
-    function i1(t) {
-        return Object.prototype.toString.call(t);
-    }
-    const r1 = {
-        isFunction: function() {
-            const e = i1(function() {});
-            return function(t) {
-                return i1(t) === e;
-            };
-        }(),
-        isUndefined (t) {
-            return void 0 === t;
-        }
-    };
-    o1.EventDispatcher.prototype.on = function(t, e) {
-        if (r1.isFunction(e)) return this instanceof o1.Object3D && (this.interactive = !0), this.addEventListener(t, e), this;
-    }, o1.EventDispatcher.prototype.off = function(t, e) {
-        return this.removeEventListener(t, e), this;
-    }, o1.EventDispatcher.prototype.once = function(e, i) {
-        if (r1.isFunction(i)) {
-            const n = (t)=>{
-                i(t), this.off(e, n);
-            };
-            return this.on(e, n), this;
-        }
-    }, o1.EventDispatcher.prototype.emit = function(t, ...e) {
-        if (void 0 !== this._listeners && !r1.isUndefined(this._listeners[t])) {
-            const i = this._listeners[t] || [], n = i.slice(0);
-            for(let t2 = 0; t2 < n.length; t2++)n[t2].apply(this, e);
-            return this;
-        }
-    }, o1.Object3D.prototype.interactive = !1, o1.Object3D.prototype.interactiveChildren = !0, o1.Object3D.prototype.started = !1, Object.defineProperty(o1.Object3D.prototype, "trackedPointers", {
-        get () {
-            return this._trackedPointers || (this._trackedPointers = {}), this._trackedPointers;
-        }
-    }), o1.Object3D.prototype.raycastTest = function(t) {
-        var e = [];
-        return this.raycast(t, e), 0 < e.length && e[0];
-    };
-    class s1 {
-        constructor(){
-            this.global = new o1.Vector2(), this.target = null, this.originalEvent = null, this.identifier = null, this.isPrimary = !1, this.button = 0, this.buttons = 0, this.width = 0, this.height = 0, this.tiltX = 0, this.tiltY = 0, this.pointerType = null, this.pressure = 0, this.rotationAngle = 0, this.twist = 0, this.tangentialPressure = 0;
-        }
-        get pointerId() {
-            return this.identifier;
-        }
-        _copyEvent(t) {
-            t.isPrimary && (this.isPrimary = !0), this.button = t.button, this.buttons = t.buttons, this.width = t.width, this.height = t.height, this.tiltX = t.tiltX, this.tiltY = t.tiltY, this.pointerType = t.pointerType, this.pressure = t.pressure, this.rotationAngle = t.rotationAngle, this.twist = t.twist || 0, this.tangentialPressure = t.tangentialPressure || 0;
-        }
-        _reset() {
-            this.isPrimary = !1;
-        }
-    }
-    class a1 {
-        constructor(){
-            this.stopped = !1, this.target = null, this.currentTarget = null, this.type = null, this.data = null, this.intersects = [];
-        }
-        stopPropagation() {
-            this.stopped = !0;
-        }
-        _reset() {
-            this.stopped = !1, this.currentTarget = null, this.target = null, this.intersects = [];
-        }
-    }
-    class h1 {
-        constructor(t){
-            this._pointerId = t, this._flags = h1.FLAGS.NONE;
-        }
-        _doSet(t, e) {
-            this._flags = e ? this._flags | t : this._flags & ~t;
-        }
-        get pointerId() {
-            return this._pointerId;
-        }
-        get flags() {
-            return this._flags;
-        }
-        set flags(t) {
-            this._flags = t;
-        }
-        get none() {
-            return this._flags === this.constructor.FLAGS.NONE;
-        }
-        get over() {
-            return 0 != (this._flags & this.constructor.FLAGS.OVER);
-        }
-        set over(t) {
-            this._doSet(this.constructor.FLAGS.OVER, t);
-        }
-        get rightDown() {
-            return 0 != (this._flags & this.constructor.FLAGS.RIGHT_DOWN);
-        }
-        set rightDown(t) {
-            this._doSet(this.constructor.FLAGS.RIGHT_DOWN, t);
-        }
-        get leftDown() {
-            return 0 != (this._flags & this.constructor.FLAGS.LEFT_DOWN);
-        }
-        set leftDown(t) {
-            this._doSet(this.constructor.FLAGS.LEFT_DOWN, t);
-        }
-    }
-    h1.FLAGS = Object.freeze({
-        NONE: 0,
-        OVER: 1,
-        LEFT_DOWN: 2,
-        RIGHT_DOWN: 4
-    });
-    const c1 = "MOUSE", n1 = {
-        target: null,
-        data: {
-            global: null
-        }
-    };
-    class e1 extends o1.EventDispatcher {
-        constructor(t, e, i, n){
-            super(), n = n || {}, this.renderer = t, this.scene = e, this.camera = i, this.autoPreventDefault = n.autoPreventDefault || !1, this.interactionFrequency = n.interactionFrequency || 10, this.mouse = new s1(), this.mouse.identifier = c1, this.mouse.global.set(-999999), this.activeInteractionData = {}, this.activeInteractionData[c1] = this.mouse, this.interactionDataPool = [], this.eventData = new a1(), this.interactionDOMElement = null, this.moveWhenInside = !0, this.eventsAdded = !1, this.mouseOverRenderer = !1, this.supportsTouchEvents = "ontouchstart" in window, this.supportsPointerEvents = !!window.PointerEvent, this.onClick = this.onClick.bind(this), this.processClick = this.processClick.bind(this), this.onPointerUp = this.onPointerUp.bind(this), this.processPointerUp = this.processPointerUp.bind(this), this.onPointerCancel = this.onPointerCancel.bind(this), this.processPointerCancel = this.processPointerCancel.bind(this), this.onPointerDown = this.onPointerDown.bind(this), this.processPointerDown = this.processPointerDown.bind(this), this.onPointerMove = this.onPointerMove.bind(this), this.processPointerMove = this.processPointerMove.bind(this), this.onPointerOut = this.onPointerOut.bind(this), this.processPointerOverOut = this.processPointerOverOut.bind(this), this.onPointerOver = this.onPointerOver.bind(this), this.cursorStyles = {
-                default: "inherit",
-                pointer: "pointer"
-            }, this.currentCursorMode = null, this.cursor = null, this.raycaster = new o1.Raycaster(), this._deltaTime = 0, this.setTargetElement(this.renderer.domElement);
-        }
-        hitTest(t, e) {
-            return n1.target = null, n1.data.global = t, e = e || this.scene, this.processInteractive(n1, e, null, !0), n1.target;
-        }
-        setTargetElement(t) {
-            this.removeEvents(), this.interactionDOMElement = t, this.addEvents();
-        }
-        addEvents() {
-            this.interactionDOMElement && !this.eventsAdded && (this.emit("addevents"), this.interactionDOMElement.addEventListener("click", this.onClick, !0), window.navigator.msPointerEnabled ? (this.interactionDOMElement.style["-ms-content-zooming"] = "none", this.interactionDOMElement.style["-ms-touch-action"] = "none") : this.supportsPointerEvents && (this.interactionDOMElement.style["touch-action"] = "none"), this.supportsPointerEvents ? (window.document.addEventListener("pointermove", this.onPointerMove, !0), this.interactionDOMElement.addEventListener("pointerdown", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("pointerleave", this.onPointerOut, !0), this.interactionDOMElement.addEventListener("pointerover", this.onPointerOver, !0), window.addEventListener("pointercancel", this.onPointerCancel, !0), window.addEventListener("pointerup", this.onPointerUp, !0)) : (window.document.addEventListener("mousemove", this.onPointerMove, !0), this.interactionDOMElement.addEventListener("mousedown", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("mouseout", this.onPointerOut, !0), this.interactionDOMElement.addEventListener("mouseover", this.onPointerOver, !0), window.addEventListener("mouseup", this.onPointerUp, !0)), this.supportsTouchEvents && (this.interactionDOMElement.addEventListener("touchstart", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("touchcancel", this.onPointerCancel, !0), this.interactionDOMElement.addEventListener("touchend", this.onPointerUp, !0), this.interactionDOMElement.addEventListener("touchmove", this.onPointerMove, !0)), this.eventsAdded = !0);
-        }
-        removeEvents() {
-            this.interactionDOMElement && (this.emit("removeevents"), this.interactionDOMElement.removeEventListener("click", this.onClick, !0), window.navigator.msPointerEnabled ? (this.interactionDOMElement.style["-ms-content-zooming"] = "", this.interactionDOMElement.style["-ms-touch-action"] = "") : this.supportsPointerEvents && (this.interactionDOMElement.style["touch-action"] = ""), this.supportsPointerEvents ? (window.document.removeEventListener("pointermove", this.onPointerMove, !0), this.interactionDOMElement.removeEventListener("pointerdown", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("pointerleave", this.onPointerOut, !0), this.interactionDOMElement.removeEventListener("pointerover", this.onPointerOver, !0), window.removeEventListener("pointercancel", this.onPointerCancel, !0), window.removeEventListener("pointerup", this.onPointerUp, !0)) : (window.document.removeEventListener("mousemove", this.onPointerMove, !0), this.interactionDOMElement.removeEventListener("mousedown", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("mouseout", this.onPointerOut, !0), this.interactionDOMElement.removeEventListener("mouseover", this.onPointerOver, !0), window.removeEventListener("mouseup", this.onPointerUp, !0)), this.supportsTouchEvents && (this.interactionDOMElement.removeEventListener("touchstart", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("touchcancel", this.onPointerCancel, !0), this.interactionDOMElement.removeEventListener("touchend", this.onPointerUp, !0), this.interactionDOMElement.removeEventListener("touchmove", this.onPointerMove, !0)), this.interactionDOMElement = null, this.eventsAdded = !1);
-        }
-        update({ snippet: t  }) {
-            if (this._deltaTime += t, !(this._deltaTime < this.interactionFrequency) && (this._deltaTime = 0, this.interactionDOMElement)) {
-                if (this.didMove) this.didMove = !1;
-                else {
-                    this.cursor = null;
-                    for(const i in this.activeInteractionData){
-                        var e;
-                        !this.activeInteractionData.hasOwnProperty(i) || (e = this.activeInteractionData[i]).originalEvent && "touch" !== e.pointerType && (e = this.configureInteractionEventForDOMEvent(this.eventData, e.originalEvent, e), this.processInteractive(e, this.scene, this.processPointerOverOut, !0));
-                    }
-                    this.setCursorMode(this.cursor);
-                }
-            }
-        }
-        setCursorMode(t) {
-            if (this.currentCursorMode !== (t = t || "default")) {
-                this.currentCursorMode = t;
-                const e = this.cursorStyles[t];
-                if (e) switch(typeof e){
-                    case "string":
-                        this.interactionDOMElement.style.cursor = e;
-                        break;
-                    case "function":
-                        e(t);
-                        break;
-                    case "object":
-                        Object.assign(this.interactionDOMElement.style, e);
-                }
-                else "string" != typeof t || Object.prototype.hasOwnProperty.call(this.cursorStyles, t) || (this.interactionDOMElement.style.cursor = t);
-            }
-        }
-        triggerEvent(t, e, i) {
-            i.stopped || (i.currentTarget = t, i.type = e, t.emit(e, i), t[e] && t[e](i));
-        }
-        processInteractive(e, t, i, n, o) {
-            if (!t || !t.visible) return !1;
-            let r = !1, s = o = t.interactive || o;
-            if (t.interactiveChildren && t.children) {
-                var a = t.children;
-                for(let t3 = a.length - 1; 0 <= t3; t3--){
-                    var h = a[t3], c = this.processInteractive(e, h, i, n, s);
-                    c && h.parent && (s = !1, c && (e.target && (n = !1), r = !0));
-                }
-            }
-            return o && (n && !e.target && e.intersects[0] && e.intersects[0].object === t && (r = !0), t.interactive && (r && !e.target && (e.data.target = e.target = t), i && i(e, t, !!r))), r;
-        }
-        onClick(t) {
-            if ("click" === t.type) {
-                var e = this.normalizeToPointerData(t);
-                this.autoPreventDefault && e[0].isNormalized && t.preventDefault();
-                var i = this.getInteractionDataForPointerId(e[0]);
-                const n = this.configureInteractionEventForDOMEvent(this.eventData, e[0], i);
-                n.data.originalEvent = t, this.processInteractive(n, this.scene, this.processClick, !0), this.emit("click", n);
-            }
-        }
-        processClick(t, e, i) {
-            i && this.triggerEvent(e, "click", t);
-        }
-        onPointerDown(e) {
-            if (!this.supportsTouchEvents || "touch" !== e.pointerType) {
-                var i = this.normalizeToPointerData(e);
-                this.autoPreventDefault && i[0].isNormalized && e.preventDefault();
-                var n = i.length;
-                for(let t = 0; t < n; t++){
-                    var o = i[t], r = this.getInteractionDataForPointerId(o);
-                    const s = this.configureInteractionEventForDOMEvent(this.eventData, o, r);
-                    s.data.originalEvent = e, this.processInteractive(s, this.scene, this.processPointerDown, !0), this.emit("pointerdown", s), "touch" === o.pointerType ? this.emit("touchstart", s) : "mouse" !== o.pointerType && "pen" !== o.pointerType || (o = 2 === o.button, this.emit(o ? "rightdown" : "mousedown", this.eventData));
-                }
-            }
-        }
-        processPointerDown(t, e, i) {
-            var n = t.data, o = t.data.identifier;
-            i && (e.trackedPointers[o] || (e.trackedPointers[o] = new h1(o)), this.triggerEvent(e, "pointerdown", t), "touch" === n.pointerType ? (e.started = !0, this.triggerEvent(e, "touchstart", t)) : "mouse" !== n.pointerType && "pen" !== n.pointerType || ((n = 2 === n.button) ? e.trackedPointers[o].rightDown = !0 : e.trackedPointers[o].leftDown = !0, this.triggerEvent(e, n ? "rightdown" : "mousedown", t)));
-        }
-        onPointerComplete(e, i, n) {
-            var o = this.normalizeToPointerData(e), r = o.length, s = e.target !== this.interactionDOMElement ? "outside" : "";
-            for(let t = 0; t < r; t++){
-                var a, h = o[t], c = this.getInteractionDataForPointerId(h);
-                const l = this.configureInteractionEventForDOMEvent(this.eventData, h, c);
-                l.data.originalEvent = e, this.processInteractive(l, this.scene, n, i || !s), this.emit(i ? "pointercancel" : `pointerup${s}`, l), "mouse" === h.pointerType || "pen" === h.pointerType ? (a = 2 === h.button, this.emit(a ? `rightup${s}` : `mouseup${s}`, l)) : "touch" === h.pointerType && (this.emit(i ? "touchcancel" : `touchend${s}`, l), this.releaseInteractionDataForPointerId(h.pointerId, c));
-            }
-        }
-        onPointerCancel(t) {
-            this.supportsTouchEvents && "touch" === t.pointerType || this.onPointerComplete(t, !0, this.processPointerCancel);
-        }
-        processPointerCancel(t, e) {
-            var i = t.data, n = t.data.identifier;
-            void 0 !== e.trackedPointers[n] && (delete e.trackedPointers[n], this.triggerEvent(e, "pointercancel", t), "touch" === i.pointerType && this.triggerEvent(e, "touchcancel", t));
-        }
-        onPointerUp(t) {
-            this.supportsTouchEvents && "touch" === t.pointerType || this.onPointerComplete(t, !1, this.processPointerUp);
-        }
-        processPointerUp(t, e, i) {
-            var n = t.data, o = t.data.identifier;
-            const r = e.trackedPointers[o];
-            var s, a = "touch" === n.pointerType;
-            "mouse" !== n.pointerType && "pen" !== n.pointerType || (s = 2 === n.button, n = h1.FLAGS, n = s ? n.RIGHT_DOWN : n.LEFT_DOWN, n = void 0 !== r && r.flags & n, i ? (this.triggerEvent(e, s ? "rightup" : "mouseup", t), n && this.triggerEvent(e, s ? "rightclick" : "leftclick", t)) : n && this.triggerEvent(e, s ? "rightupoutside" : "mouseupoutside", t), r && (s ? r.rightDown = !1 : r.leftDown = !1)), a && e.started && (e.started = !1, this.triggerEvent(e, "touchend", t)), i ? (this.triggerEvent(e, "pointerup", t), r && (this.triggerEvent(e, "pointertap", t), a && (this.triggerEvent(e, "tap", t), r.over = !1))) : r && (this.triggerEvent(e, "pointerupoutside", t), a && this.triggerEvent(e, "touchendoutside", t)), r && r.none && delete e.trackedPointers[o];
-        }
-        onPointerMove(e) {
-            if (!this.supportsTouchEvents || "touch" !== e.pointerType) {
-                var i = this.normalizeToPointerData(e);
-                "mouse" === i[0].pointerType && (this.didMove = !0, this.cursor = null);
-                var n = i.length;
-                for(let t = 0; t < n; t++){
-                    var o = i[t], r = this.getInteractionDataForPointerId(o);
-                    const s = this.configureInteractionEventForDOMEvent(this.eventData, o, r);
-                    s.data.originalEvent = e;
-                    r = "touch" !== o.pointerType || this.moveWhenInside;
-                    this.processInteractive(s, this.scene, this.processPointerMove, r), this.emit("pointermove", s), "touch" === o.pointerType && this.emit("touchmove", s), "mouse" !== o.pointerType && "pen" !== o.pointerType || this.emit("mousemove", s);
-                }
-                "mouse" === i[0].pointerType && this.setCursorMode(this.cursor);
-            }
-        }
-        processPointerMove(t, e, i) {
-            var n = t.data, o = "touch" === n.pointerType, n = "mouse" === n.pointerType || "pen" === n.pointerType;
-            n && this.processPointerOverOut(t, e, i), o && e.started && this.triggerEvent(e, "touchmove", t), this.moveWhenInside && !i || (this.triggerEvent(e, "pointermove", t), n && this.triggerEvent(e, "mousemove", t));
-        }
-        onPointerOut(t) {
-            if (!this.supportsTouchEvents || "touch" !== t.pointerType) {
-                var e = this.normalizeToPointerData(t)[0];
-                "mouse" === e.pointerType && (this.mouseOverRenderer = !1, this.setCursorMode(null));
-                t = this.getInteractionDataForPointerId(e);
-                const i = this.configureInteractionEventForDOMEvent(this.eventData, e, t);
-                i.data.originalEvent = e, this.processInteractive(i, this.scene, this.processPointerOverOut, !1), this.emit("pointerout", i), "mouse" === e.pointerType || "pen" === e.pointerType ? this.emit("mouseout", i) : this.releaseInteractionDataForPointerId(t.identifier);
-            }
-        }
-        processPointerOverOut(t, e, i) {
-            var n = t.data, o = t.data.identifier, n = "mouse" === n.pointerType || "pen" === n.pointerType;
-            let r = e.trackedPointers[o];
-            i && !r && (r = e.trackedPointers[o] = new h1(o)), void 0 !== r && (i && this.mouseOverRenderer ? (r.over || (r.over = !0, this.triggerEvent(e, "pointerover", t), n && this.triggerEvent(e, "mouseover", t)), n && null === this.cursor && (this.cursor = e.cursor)) : r.over && (r.over = !1, this.triggerEvent(e, "pointerout", this.eventData), n && this.triggerEvent(e, "mouseout", t), r.none && delete e.trackedPointers[o]));
-        }
-        onPointerOver(t) {
-            var e = this.normalizeToPointerData(t)[0], t = this.getInteractionDataForPointerId(e);
-            const i = this.configureInteractionEventForDOMEvent(this.eventData, e, t);
-            "mouse" === (i.data.originalEvent = e).pointerType && (this.mouseOverRenderer = !0), this.emit("pointerover", i), "mouse" !== e.pointerType && "pen" !== e.pointerType || this.emit("mouseover", i);
-        }
-        getInteractionDataForPointerId(t) {
-            var e = t.pointerId;
-            let i;
-            return e === c1 || "mouse" === t.pointerType ? i = this.mouse : this.activeInteractionData[e] ? i = this.activeInteractionData[e] : (i = this.interactionDataPool.pop() || new s1(), i.identifier = e, this.activeInteractionData[e] = i), i._copyEvent(t), i;
-        }
-        releaseInteractionDataForPointerId(t) {
-            const e = this.activeInteractionData[t];
-            e && (delete this.activeInteractionData[t], e._reset(), this.interactionDataPool.push(e));
-        }
-        mapPositionToPoint(t, e, i) {
-            let n;
-            n = this.interactionDOMElement.parentElement ? this.interactionDOMElement.getBoundingClientRect() : {
-                x: 0,
-                y: 0,
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0
-            }, t.x = (e - n.left) / n.width * 2 - 1, t.y = 2 * -((i - n.top) / n.height) + 1;
-        }
-        configureInteractionEventForDOMEvent(t, e, i) {
-            return t.data = i, this.mapPositionToPoint(i.global, e.clientX, e.clientY), this.raycaster.setFromCamera(i.global, this.camera), "touch" === e.pointerType && (e.globalX = i.global.x, e.globalY = i.global.y), i.originalEvent = e, t._reset(), t.intersects = this.raycaster.intersectObjects(this.scene.children, !0), t;
-        }
-        normalizeToPointerData(i) {
-            const n = [];
-            if (this.supportsTouchEvents && i instanceof TouchEvent) for(let t = 0, e = i.changedTouches.length; t < e; t++){
-                const o = i.changedTouches[t];
-                void 0 === o.button && (o.button = i.touches.length ? 1 : 0), void 0 === o.buttons && (o.buttons = i.touches.length ? 1 : 0), void 0 === o.isPrimary && (o.isPrimary = 1 === i.touches.length && "touchstart" === i.type), void 0 === o.width && (o.width = o.radiusX || 1), void 0 === o.height && (o.height = o.radiusY || 1), void 0 === o.tiltX && (o.tiltX = 0), void 0 === o.tiltY && (o.tiltY = 0), void 0 === o.pointerType && (o.pointerType = "touch"), void 0 === o.pointerId && (o.pointerId = o.identifier || 0), void 0 === o.pressure && (o.pressure = o.force || 0.5), o.twist = 0, void (o.tangentialPressure = 0) === o.layerX && (o.layerX = o.offsetX = o.clientX), void 0 === o.layerY && (o.layerY = o.offsetY = o.clientY), o.isNormalized = !0, n.push(o);
-            }
-            else !(i instanceof MouseEvent) || this.supportsPointerEvents && i instanceof window.PointerEvent || (void 0 === i.isPrimary && (i.isPrimary = !0), void 0 === i.width && (i.width = 1), void 0 === i.height && (i.height = 1), void 0 === i.tiltX && (i.tiltX = 0), void 0 === i.tiltY && (i.tiltY = 0), void 0 === i.pointerType && (i.pointerType = "mouse"), void 0 === i.pointerId && (i.pointerId = c1), void 0 === i.pressure && (i.pressure = 0.5), i.twist = 0, i.tangentialPressure = 0, i.isNormalized = !0), n.push(i);
-            return n;
-        }
-        destroy() {
-            this.removeEvents(), this.removeAllListeners(), this.renderer = null, this.mouse = null, this.eventData = null, this.interactionDOMElement = null, this.onPointerDown = null, this.processPointerDown = null, this.onPointerUp = null, this.processPointerUp = null, this.onPointerCancel = null, this.processPointerCancel = null, this.onPointerMove = null, this.processPointerMove = null, this.onPointerOut = null, this.processPointerOverOut = null, this.onPointerOver = null, this._tempPoint = null;
-        }
-    }
-    const l1 = "MOUSE", u = {
-        target: null,
-        data: {
-            global: null
-        }
-    };
-    class p extends o1.EventDispatcher {
-        constructor(t, e){
-            super(), e = e || {}, this.renderer = t, this.layer = null, this.autoPreventDefault = e.autoPreventDefault || !1, this.interactionFrequency = e.interactionFrequency || 10, this.mouse = new s1(), this.mouse.identifier = l1, this.mouse.global.set(-999999), this.activeInteractionData = {}, this.activeInteractionData[l1] = this.mouse, this.interactionDataPool = [], this.eventData = new a1(), this.interactionDOMElement = null, this.moveWhenInside = !0, this.eventsAdded = !1, this.mouseOverRenderer = !1, this.supportsTouchEvents = "ontouchstart" in window, this.supportsPointerEvents = !!window.PointerEvent, this.onClick = this.onClick.bind(this), this.processClick = this.processClick.bind(this), this.onPointerUp = this.onPointerUp.bind(this), this.processPointerUp = this.processPointerUp.bind(this), this.onPointerCancel = this.onPointerCancel.bind(this), this.processPointerCancel = this.processPointerCancel.bind(this), this.onPointerDown = this.onPointerDown.bind(this), this.processPointerDown = this.processPointerDown.bind(this), this.onPointerMove = this.onPointerMove.bind(this), this.processPointerMove = this.processPointerMove.bind(this), this.onPointerOut = this.onPointerOut.bind(this), this.processPointerOverOut = this.processPointerOverOut.bind(this), this.onPointerOver = this.onPointerOver.bind(this), this.cursorStyles = {
-                default: "inherit",
-                pointer: "pointer"
-            }, this.currentCursorMode = null, this.cursor = null, this.raycaster = new o1.Raycaster(), this._deltaTime = 0, this.setTargetElement(this.renderer.domElement);
-        }
-        isAble() {
-            return this.layer && this.layer.interactive;
-        }
-        setLayer(t) {
-            this.layer = t;
-        }
-        hitTest(t, e) {
-            return this.isAble() ? (u.target = null, u.data.global = t, e = e || this.layer.scene, this.processInteractive(u, e, null, !0), u.target) : null;
-        }
-        setTargetElement(t) {
-            this.removeEvents(), this.interactionDOMElement = t, this.addEvents();
-        }
-        addEvents() {
-            this.interactionDOMElement && !this.eventsAdded && (this.emit("addevents"), this.interactionDOMElement.addEventListener("click", this.onClick, !0), window.navigator.msPointerEnabled ? (this.interactionDOMElement.style["-ms-content-zooming"] = "none", this.interactionDOMElement.style["-ms-touch-action"] = "none") : this.supportsPointerEvents && (this.interactionDOMElement.style["touch-action"] = "none"), this.supportsPointerEvents ? (window.document.addEventListener("pointermove", this.onPointerMove, !0), this.interactionDOMElement.addEventListener("pointerdown", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("pointerleave", this.onPointerOut, !0), this.interactionDOMElement.addEventListener("pointerover", this.onPointerOver, !0), window.addEventListener("pointercancel", this.onPointerCancel, !0), window.addEventListener("pointerup", this.onPointerUp, !0)) : (window.document.addEventListener("mousemove", this.onPointerMove, !0), this.interactionDOMElement.addEventListener("mousedown", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("mouseout", this.onPointerOut, !0), this.interactionDOMElement.addEventListener("mouseover", this.onPointerOver, !0), window.addEventListener("mouseup", this.onPointerUp, !0)), this.supportsTouchEvents && (this.interactionDOMElement.addEventListener("touchstart", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("touchcancel", this.onPointerCancel, !0), this.interactionDOMElement.addEventListener("touchend", this.onPointerUp, !0), this.interactionDOMElement.addEventListener("touchmove", this.onPointerMove, !0)), this.eventsAdded = !0);
-        }
-        removeEvents() {
-            this.interactionDOMElement && (this.emit("removeevents"), this.interactionDOMElement.removeEventListener("click", this.onClick, !0), window.navigator.msPointerEnabled ? (this.interactionDOMElement.style["-ms-content-zooming"] = "", this.interactionDOMElement.style["-ms-touch-action"] = "") : this.supportsPointerEvents && (this.interactionDOMElement.style["touch-action"] = ""), this.supportsPointerEvents ? (window.document.removeEventListener("pointermove", this.onPointerMove, !0), this.interactionDOMElement.removeEventListener("pointerdown", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("pointerleave", this.onPointerOut, !0), this.interactionDOMElement.removeEventListener("pointerover", this.onPointerOver, !0), window.removeEventListener("pointercancel", this.onPointerCancel, !0), window.removeEventListener("pointerup", this.onPointerUp, !0)) : (window.document.removeEventListener("mousemove", this.onPointerMove, !0), this.interactionDOMElement.removeEventListener("mousedown", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("mouseout", this.onPointerOut, !0), this.interactionDOMElement.removeEventListener("mouseover", this.onPointerOver, !0), window.removeEventListener("mouseup", this.onPointerUp, !0)), this.supportsTouchEvents && (this.interactionDOMElement.removeEventListener("touchstart", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("touchcancel", this.onPointerCancel, !0), this.interactionDOMElement.removeEventListener("touchend", this.onPointerUp, !0), this.interactionDOMElement.removeEventListener("touchmove", this.onPointerMove, !0)), this.interactionDOMElement = null, this.eventsAdded = !1);
-        }
-        update({ snippet: t  }) {
-            if (this.isAble() && (this._deltaTime += t, !(this._deltaTime < this.interactionFrequency) && (this._deltaTime = 0, this.interactionDOMElement))) {
-                if (this.didMove) this.didMove = !1;
-                else {
-                    this.cursor = null;
-                    for(const i in this.activeInteractionData){
-                        var e;
-                        !this.activeInteractionData.hasOwnProperty(i) || (e = this.activeInteractionData[i]).originalEvent && "touch" !== e.pointerType && (e = this.configureInteractionEventForDOMEvent(this.eventData, e.originalEvent, e), this.processInteractive(e, this.layer.scene, this.processPointerOverOut, !0));
-                    }
-                    this.setCursorMode(this.cursor);
-                }
-            }
-        }
-        setCursorMode(t) {
-            if (this.currentCursorMode !== (t = t || "default")) {
-                this.currentCursorMode = t;
-                const e = this.cursorStyles[t];
-                if (e) switch(typeof e){
-                    case "string":
-                        this.interactionDOMElement.style.cursor = e;
-                        break;
-                    case "function":
-                        e(t);
-                        break;
-                    case "object":
-                        Object.assign(this.interactionDOMElement.style, e);
-                }
-                else "string" != typeof t || Object.prototype.hasOwnProperty.call(this.cursorStyles, t) || (this.interactionDOMElement.style.cursor = t);
-            }
-        }
-        triggerEvent(t, e, i) {
-            i.stopped || (i.currentTarget = t, i.type = e, t.emit(e, i), t[e] && t[e](i));
-        }
-        processInteractive(e, t, i, n, o) {
-            if (!t || !t.visible) return !1;
-            let r = !1, s = o = t.interactive || o;
-            if (t.interactiveChildren && t.children) {
-                var a = t.children;
-                for(let t4 = a.length - 1; 0 <= t4; t4--){
-                    var h = a[t4], c = this.processInteractive(e, h, i, n, s);
-                    c && h.parent && (s = !1, c && (e.target && (n = !1), r = !0));
-                }
-            }
-            return o && (n && !e.target && e.intersects[0] && e.intersects[0].object === t && (r = !0), t.interactive && (r && !e.target && (e.data.target = e.target = t), i && i(e, t, !!r))), r;
-        }
-        onClick(t) {
-            if (this.isAble() && "click" === t.type) {
-                var e = this.normalizeToPointerData(t);
-                this.autoPreventDefault && e[0].isNormalized && t.preventDefault();
-                var i = this.getInteractionDataForPointerId(e[0]);
-                const n = this.configureInteractionEventForDOMEvent(this.eventData, e[0], i);
-                n.data.originalEvent = t, this.processInteractive(n, this.layer.scene, this.processClick, !0), this.emit("click", n);
-            }
-        }
-        processClick(t, e, i) {
-            i && this.triggerEvent(e, "click", t);
-        }
-        onPointerDown(e) {
-            if (this.isAble() && (!this.supportsTouchEvents || "touch" !== e.pointerType)) {
-                var i = this.normalizeToPointerData(e);
-                this.autoPreventDefault && i[0].isNormalized && e.preventDefault();
-                var n = i.length;
-                for(let t = 0; t < n; t++){
-                    var o = i[t], r = this.getInteractionDataForPointerId(o);
-                    const s = this.configureInteractionEventForDOMEvent(this.eventData, o, r);
-                    s.data.originalEvent = e, this.processInteractive(s, this.layer.scene, this.processPointerDown, !0), this.emit("pointerdown", s), "touch" === o.pointerType ? this.emit("touchstart", s) : "mouse" !== o.pointerType && "pen" !== o.pointerType || (o = 2 === o.button, this.emit(o ? "rightdown" : "mousedown", this.eventData));
-                }
-            }
-        }
-        processPointerDown(t, e, i) {
-            var n = t.data, o = t.data.identifier;
-            i && (e.trackedPointers[o] || (e.trackedPointers[o] = new h1(o)), this.triggerEvent(e, "pointerdown", t), "touch" === n.pointerType ? (e.started = !0, this.triggerEvent(e, "touchstart", t)) : "mouse" !== n.pointerType && "pen" !== n.pointerType || ((n = 2 === n.button) ? e.trackedPointers[o].rightDown = !0 : e.trackedPointers[o].leftDown = !0, this.triggerEvent(e, n ? "rightdown" : "mousedown", t)));
-        }
-        onPointerComplete(e, i, n) {
-            var o = this.normalizeToPointerData(e), r = o.length, s = e.target !== this.interactionDOMElement ? "outside" : "";
-            for(let t = 0; t < r; t++){
-                var a, h = o[t], c = this.getInteractionDataForPointerId(h);
-                const l = this.configureInteractionEventForDOMEvent(this.eventData, h, c);
-                l.data.originalEvent = e, this.processInteractive(l, this.layer.scene, n, i || !s), this.emit(i ? "pointercancel" : `pointerup${s}`, l), "mouse" === h.pointerType || "pen" === h.pointerType ? (a = 2 === h.button, this.emit(a ? `rightup${s}` : `mouseup${s}`, l)) : "touch" === h.pointerType && (this.emit(i ? "touchcancel" : `touchend${s}`, l), this.releaseInteractionDataForPointerId(h.pointerId, c));
-            }
-        }
-        onPointerCancel(t) {
-            this.isAble() && (this.supportsTouchEvents && "touch" === t.pointerType || this.onPointerComplete(t, !0, this.processPointerCancel));
-        }
-        processPointerCancel(t, e) {
-            var i = t.data, n = t.data.identifier;
-            void 0 !== e.trackedPointers[n] && (delete e.trackedPointers[n], this.triggerEvent(e, "pointercancel", t), "touch" === i.pointerType && this.triggerEvent(e, "touchcancel", t));
-        }
-        onPointerUp(t) {
-            this.isAble() && (this.supportsTouchEvents && "touch" === t.pointerType || this.onPointerComplete(t, !1, this.processPointerUp));
-        }
-        processPointerUp(t, e, i) {
-            var n = t.data, o = t.data.identifier;
-            const r = e.trackedPointers[o];
-            var s, a = "touch" === n.pointerType;
-            "mouse" !== n.pointerType && "pen" !== n.pointerType || (s = 2 === n.button, n = h1.FLAGS, n = s ? n.RIGHT_DOWN : n.LEFT_DOWN, n = void 0 !== r && r.flags & n, i ? (this.triggerEvent(e, s ? "rightup" : "mouseup", t), n && this.triggerEvent(e, s ? "rightclick" : "leftclick", t)) : n && this.triggerEvent(e, s ? "rightupoutside" : "mouseupoutside", t), r && (s ? r.rightDown = !1 : r.leftDown = !1)), a && e.started && (e.started = !1, this.triggerEvent(e, "touchend", t)), i ? (this.triggerEvent(e, "pointerup", t), r && (this.triggerEvent(e, "pointertap", t), a && (this.triggerEvent(e, "tap", t), r.over = !1))) : r && (this.triggerEvent(e, "pointerupoutside", t), a && this.triggerEvent(e, "touchendoutside", t)), r && r.none && delete e.trackedPointers[o];
-        }
-        onPointerMove(e) {
-            if (this.isAble() && (!this.supportsTouchEvents || "touch" !== e.pointerType)) {
-                var i = this.normalizeToPointerData(e);
-                "mouse" === i[0].pointerType && (this.didMove = !0, this.cursor = null);
-                var n = i.length;
-                for(let t = 0; t < n; t++){
-                    var o = i[t], r = this.getInteractionDataForPointerId(o);
-                    const s = this.configureInteractionEventForDOMEvent(this.eventData, o, r);
-                    s.data.originalEvent = e;
-                    r = "touch" !== o.pointerType || this.moveWhenInside;
-                    this.processInteractive(s, this.layer.scene, this.processPointerMove, r), this.emit("pointermove", s), "touch" === o.pointerType && this.emit("touchmove", s), "mouse" !== o.pointerType && "pen" !== o.pointerType || this.emit("mousemove", s);
-                }
-                "mouse" === i[0].pointerType && this.setCursorMode(this.cursor);
-            }
-        }
-        processPointerMove(t, e, i) {
-            var n = t.data, o = "touch" === n.pointerType, n = "mouse" === n.pointerType || "pen" === n.pointerType;
-            n && this.processPointerOverOut(t, e, i), o && e.started && this.triggerEvent(e, "touchmove", t), this.moveWhenInside && !i || (this.triggerEvent(e, "pointermove", t), n && this.triggerEvent(e, "mousemove", t));
-        }
-        onPointerOut(t) {
-            if (this.isAble() && (!this.supportsTouchEvents || "touch" !== t.pointerType)) {
-                var e = this.normalizeToPointerData(t)[0];
-                "mouse" === e.pointerType && (this.mouseOverRenderer = !1, this.setCursorMode(null));
-                t = this.getInteractionDataForPointerId(e);
-                const i = this.configureInteractionEventForDOMEvent(this.eventData, e, t);
-                i.data.originalEvent = e, this.processInteractive(i, this.layer.scene, this.processPointerOverOut, !1), this.emit("pointerout", i), "mouse" === e.pointerType || "pen" === e.pointerType ? this.emit("mouseout", i) : this.releaseInteractionDataForPointerId(t.identifier);
-            }
-        }
-        processPointerOverOut(t, e, i) {
-            var n = t.data, o = t.data.identifier, n = "mouse" === n.pointerType || "pen" === n.pointerType;
-            let r = e.trackedPointers[o];
-            i && !r && (r = e.trackedPointers[o] = new h1(o)), void 0 !== r && (i && this.mouseOverRenderer ? (r.over || (r.over = !0, this.triggerEvent(e, "pointerover", t), n && this.triggerEvent(e, "mouseover", t)), n && null === this.cursor && (this.cursor = e.cursor)) : r.over && (r.over = !1, this.triggerEvent(e, "pointerout", this.eventData), n && this.triggerEvent(e, "mouseout", t), r.none && delete e.trackedPointers[o]));
-        }
-        onPointerOver(t) {
-            if (this.isAble()) {
-                var e = this.normalizeToPointerData(t)[0], t = this.getInteractionDataForPointerId(e);
-                const i = this.configureInteractionEventForDOMEvent(this.eventData, e, t);
-                "mouse" === (i.data.originalEvent = e).pointerType && (this.mouseOverRenderer = !0), this.emit("pointerover", i), "mouse" !== e.pointerType && "pen" !== e.pointerType || this.emit("mouseover", i);
-            }
-        }
-        getInteractionDataForPointerId(t) {
-            var e = t.pointerId;
-            let i;
-            return e === l1 || "mouse" === t.pointerType ? i = this.mouse : this.activeInteractionData[e] ? i = this.activeInteractionData[e] : (i = this.interactionDataPool.pop() || new s1(), i.identifier = e, this.activeInteractionData[e] = i), i._copyEvent(t), i;
-        }
-        releaseInteractionDataForPointerId(t) {
-            const e = this.activeInteractionData[t];
-            e && (delete this.activeInteractionData[t], e._reset(), this.interactionDataPool.push(e));
-        }
-        mapPositionToPoint(t, e, i) {
-            let n;
-            n = this.interactionDOMElement.parentElement ? this.interactionDOMElement.getBoundingClientRect() : {
-                x: 0,
-                y: 0,
-                left: 0,
-                top: 0,
-                width: 0,
-                height: 0
-            }, t.x = (e - n.left) / n.width * 2 - 1, t.y = 2 * -((i - n.top) / n.height) + 1;
-        }
-        configureInteractionEventForDOMEvent(t, e, i) {
-            return t.data = i, this.mapPositionToPoint(i.global, e.clientX, e.clientY), this.layer && this.layer.interactive && this.raycaster.setFromCamera(i.global, this.layer.camera), "touch" === e.pointerType && (e.globalX = i.global.x, e.globalY = i.global.y), i.originalEvent = e, t._reset(), t.intersects = this.raycaster.intersectObjects(this.scene.children, !0), t;
-        }
-        normalizeToPointerData(i) {
-            const n = [];
-            if (this.supportsTouchEvents && i instanceof TouchEvent) for(let t = 0, e = i.changedTouches.length; t < e; t++){
-                const o = i.changedTouches[t];
-                void 0 === o.button && (o.button = i.touches.length ? 1 : 0), void 0 === o.buttons && (o.buttons = i.touches.length ? 1 : 0), void 0 === o.isPrimary && (o.isPrimary = 1 === i.touches.length && "touchstart" === i.type), void 0 === o.width && (o.width = o.radiusX || 1), void 0 === o.height && (o.height = o.radiusY || 1), void 0 === o.tiltX && (o.tiltX = 0), void 0 === o.tiltY && (o.tiltY = 0), void 0 === o.pointerType && (o.pointerType = "touch"), void 0 === o.pointerId && (o.pointerId = o.identifier || 0), void 0 === o.pressure && (o.pressure = o.force || 0.5), o.twist = 0, void (o.tangentialPressure = 0) === o.layerX && (o.layerX = o.offsetX = o.clientX), void 0 === o.layerY && (o.layerY = o.offsetY = o.clientY), o.isNormalized = !0, n.push(o);
-            }
-            else !(i instanceof MouseEvent) || this.supportsPointerEvents && i instanceof window.PointerEvent || (void 0 === i.isPrimary && (i.isPrimary = !0), void 0 === i.width && (i.width = 1), void 0 === i.height && (i.height = 1), void 0 === i.tiltX && (i.tiltX = 0), void 0 === i.tiltY && (i.tiltY = 0), void 0 === i.pointerType && (i.pointerType = "mouse"), void 0 === i.pointerId && (i.pointerId = l1), void 0 === i.pressure && (i.pressure = 0.5), i.twist = 0, i.tangentialPressure = 0, i.isNormalized = !0), n.push(i);
-            return n;
-        }
-        destroy() {
-            this.removeEvents(), this.removeAllListeners(), this.renderer = null, this.mouse = null, this.eventData = null, this.interactionDOMElement = null, this.onPointerDown = null, this.processPointerDown = null, this.onPointerUp = null, this.processPointerUp = null, this.onPointerCancel = null, this.processPointerCancel = null, this.onPointerMove = null, this.processPointerMove = null, this.onPointerOut = null, this.processPointerOverOut = null, this.onPointerOver = null, this._tempPoint = null;
-        }
-    }
-    !function() {
-        let o = 0;
-        var e2 = [
-            "ms",
-            "moz",
-            "webkit",
-            "o"
-        ];
-        for(let t5 = 0; t5 < e2.length && !window.requestAnimationFrame; ++t5)window.requestAnimationFrame = window[e2[t5] + "RequestAnimationFrame"], window.cancelAnimationFrame = window[e2[t5] + "CancelAnimationFrame"] || window[e2[t5] + "CancelRequestAnimationFrame"];
-        window.requestAnimationFrame || (window.requestAnimationFrame = function(t) {
-            let e = new Date().getTime(), i = Math.max(0, 16 - (e - o));
-            var n = window.setTimeout(function() {
-                t(e + i);
-            }, i);
-            return o = e + i, n;
-        }), window.cancelAnimationFrame || (window.cancelAnimationFrame = function(t) {
-            clearTimeout(t);
-        }), window.RAF = window.requestAnimationFrame, window.CAF = window.cancelAnimationFrame;
-    }();
-    class v extends o1.EventDispatcher {
-        constructor(){
-            super(), this.timer = null, this.started = !1, this.pt = 0, this.snippet = 0, this.start();
-        }
-        start() {
-            if (!this.started) {
-                const t = ()=>{
-                    this.timeline(), this.emit("tick", {
-                        snippet: this.snippet
-                    }), this.timer = RAF(t);
-                };
-                t();
-            }
-        }
-        stop() {
-            CAF(this.timer), this.started = !1;
-        }
-        timeline() {
-            this.snippet = Date.now() - this.pt, (0 === this.pt || 200 < this.snippet) && (this.pt = Date.now(), this.snippet = Date.now() - this.pt), this.pt += this.snippet;
-        }
-    }
-    return _threeModuleJs.InteractionManager = e1, _threeModuleJs.InteractionLayer = p, _threeModuleJs.Interaction = class extends e1 {
-        constructor(t, e, i, n){
-            super(t, e, i, n = Object.assign({
-                autoAttach: !1
-            }, n)), this.ticker = new v(), this.update = this.update.bind(this), this.on("addevents", ()=>{
-                this.ticker.on("tick", this.update);
-            }), this.on("removeevents", ()=>{
-                this.ticker.off("tick", this.update);
-            }), this.setTargetElement(this.renderer.domElement);
-        }
-    }, t1;
-})({}, _threeModuleJs);
-
-},{"./three.module.js":"bntYB"}],"bntYB":[function(require,module,exports) {
+},{"three":"ktPTu","three/examples/jsm/controls/OrbitControls":"7mqRv","./threejs/three.interaction.js":"35dWp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../img/blue-world.png":"11KNn"}],"ktPTu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ACESFilmicToneMapping", ()=>ACESFilmicToneMapping
@@ -2332,8 +1702,8 @@ const GLSL1 = '100';
 const GLSL3 = '300 es';
 const _SRGBAFormat = 1035; // fallback for WebGL 1
 /**
-  * https://github.com/mrdoob/eventdispatcher.js/
-  */ class EventDispatcher {
+ * https://github.com/mrdoob/eventdispatcher.js/
+ */ class EventDispatcher {
     addEventListener(type, listener) {
         if (this._listeners === undefined) this._listeners = {};
         const listeners = this._listeners;
@@ -4264,10 +3634,10 @@ class Vector4 {
 }
 Vector4.prototype.isVector4 = true;
 /*
-  In options, we can specify:
-  * Texture parameters for an auto-generated target texture
-  * depthBuffer/stencilBuffer: Booleans to indicate if we should generate these buffers
- */ class WebGLRenderTarget extends EventDispatcher {
+ In options, we can specify:
+ * Texture parameters for an auto-generated target texture
+ * depthBuffer/stencilBuffer: Booleans to indicate if we should generate these buffers
+*/ class WebGLRenderTarget extends EventDispatcher {
     constructor(width, height, options = {}){
         super();
         this.width = width;
@@ -8897,8 +8267,8 @@ class BoxGeometry extends BufferGeometry {
     }
 }
 /**
-  * Uniform Utilities
-  */ function cloneUniforms(src) {
+ * Uniform Utilities
+ */ function cloneUniforms(src) {
     const dst = {};
     for(const u in src){
         dst[u] = {};
@@ -9096,20 +8466,20 @@ class PerspectiveCamera extends Camera {
         return this;
     }
     /**
-      * Sets the FOV by focal length in respect to the current .filmGauge.
-      *
-      * The default film gauge is 35, so that the focal length can be specified for
-      * a 35mm (full frame) camera.
-      *
-      * Values for focal length and film gauge must have the same unit.
-      */ setFocalLength(focalLength) {
+	 * Sets the FOV by focal length in respect to the current .filmGauge.
+	 *
+	 * The default film gauge is 35, so that the focal length can be specified for
+	 * a 35mm (full frame) camera.
+	 *
+	 * Values for focal length and film gauge must have the same unit.
+	 */ setFocalLength(focalLength) {
         /** see {@link http://www.bobatkins.com/photography/technical/field_of_view.html} */ const vExtentSlope = 0.5 * this.getFilmHeight() / focalLength;
         this.fov = RAD2DEG * 2 * Math.atan(vExtentSlope);
         this.updateProjectionMatrix();
     }
     /**
-      * Calculates the focal length from the current .fov and .filmGauge.
-      */ getFocalLength() {
+	 * Calculates the focal length from the current .fov and .filmGauge.
+	 */ getFocalLength() {
         const vExtentSlope = Math.tan(DEG2RAD * 0.5 * this.fov);
         return 0.5 * this.getFilmHeight() / vExtentSlope;
     }
@@ -9125,40 +8495,40 @@ class PerspectiveCamera extends Camera {
         return this.filmGauge / Math.max(this.aspect, 1);
     }
     /**
-      * Sets an offset in a larger frustum. This is useful for multi-window or
-      * multi-monitor/multi-machine setups.
-      *
-      * For example, if you have 3x2 monitors and each monitor is 1920x1080 and
-      * the monitors are in grid like this
-      *
-      *   +---+---+---+
-      *   | A | B | C |
-      *   +---+---+---+
-      *   | D | E | F |
-      *   +---+---+---+
-      *
-      * then for each monitor you would call it like this
-      *
-      *   const w = 1920;
-      *   const h = 1080;
-      *   const fullWidth = w * 3;
-      *   const fullHeight = h * 2;
-      *
-      *   --A--
-      *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h );
-      *   --B--
-      *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h );
-      *   --C--
-      *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h );
-      *   --D--
-      *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h );
-      *   --E--
-      *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );
-      *   --F--
-      *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h );
-      *
-      *   Note there is no reason monitors have to be the same size or in a grid.
-      */ setViewOffset(fullWidth, fullHeight, x, y, width, height) {
+	 * Sets an offset in a larger frustum. This is useful for multi-window or
+	 * multi-monitor/multi-machine setups.
+	 *
+	 * For example, if you have 3x2 monitors and each monitor is 1920x1080 and
+	 * the monitors are in grid like this
+	 *
+	 *   +---+---+---+
+	 *   | A | B | C |
+	 *   +---+---+---+
+	 *   | D | E | F |
+	 *   +---+---+---+
+	 *
+	 * then for each monitor you would call it like this
+	 *
+	 *   const w = 1920;
+	 *   const h = 1080;
+	 *   const fullWidth = w * 3;
+	 *   const fullHeight = h * 2;
+	 *
+	 *   --A--
+	 *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 0, w, h );
+	 *   --B--
+	 *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 0, w, h );
+	 *   --C--
+	 *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 0, w, h );
+	 *   --D--
+	 *   camera.setViewOffset( fullWidth, fullHeight, w * 0, h * 1, w, h );
+	 *   --E--
+	 *   camera.setViewOffset( fullWidth, fullHeight, w * 1, h * 1, w, h );
+	 *   --F--
+	 *   camera.setViewOffset( fullWidth, fullHeight, w * 2, h * 1, w, h );
+	 *
+	 *   Note there is no reason monitors have to be the same size or in a grid.
+	 */ setViewOffset(fullWidth, fullHeight, x, y, width, height) {
         this.aspect = fullWidth / fullHeight;
         if (this.view === null) this.view = {
             enabled: true,
@@ -9345,42 +8715,42 @@ class WebGLCubeRenderTarget extends WebGLRenderTarget {
                 }
             },
             vertexShader: /* glsl */ `
- 
-                 varying vec3 vWorldDirection;
- 
-                 vec3 transformDirection( in vec3 dir, in mat4 matrix ) {
- 
-                     return normalize( ( matrix * vec4( dir, 0.0 ) ).xyz );
- 
-                 }
- 
-                 void main() {
- 
-                     vWorldDirection = transformDirection( position, modelMatrix );
- 
-                     #include <begin_vertex>
-                     #include <project_vertex>
- 
-                 }
-             `,
+
+				varying vec3 vWorldDirection;
+
+				vec3 transformDirection( in vec3 dir, in mat4 matrix ) {
+
+					return normalize( ( matrix * vec4( dir, 0.0 ) ).xyz );
+
+				}
+
+				void main() {
+
+					vWorldDirection = transformDirection( position, modelMatrix );
+
+					#include <begin_vertex>
+					#include <project_vertex>
+
+				}
+			`,
             fragmentShader: /* glsl */ `
- 
-                 uniform sampler2D tEquirect;
- 
-                 varying vec3 vWorldDirection;
- 
-                 #include <common>
- 
-                 void main() {
- 
-                     vec3 direction = normalize( vWorldDirection );
- 
-                     vec2 sampleUV = equirectUv( direction );
- 
-                     gl_FragColor = texture2D( tEquirect, sampleUV );
- 
-                 }
-             `
+
+				uniform sampler2D tEquirect;
+
+				varying vec3 vWorldDirection;
+
+				#include <common>
+
+				void main() {
+
+					vec3 direction = normalize( vWorldDirection );
+
+					vec2 sampleUV = equirectUv( direction );
+
+					gl_FragColor = texture2D( tEquirect, sampleUV );
+
+				}
+			`
         };
         const geometry = new BoxGeometry(5, 5, 5);
         const material = new ShaderMaterial({
@@ -10036,8 +9406,8 @@ const ShaderChunk = {
     sprite_frag: fragment$1
 };
 /**
-  * Uniforms library for shared webgl shaders
-  */ const UniformsLib = {
+ * Uniforms library for shared webgl shaders
+ */ const UniformsLib = {
     common: {
         diffuse: {
             value: new Color(16777215)
@@ -10520,8 +9890,8 @@ const ShaderLib = {
         fragmentShader: ShaderChunk.background_frag
     },
     /* -------------------------------------------------------------------------
-     //	Cube map shader
-      ------------------------------------------------------------------------- */ cube: {
+	//	Cube map shader
+	 ------------------------------------------------------------------------- */ cube: {
         uniforms: mergeUniforms([
             UniformsLib.envmap,
             {
@@ -11389,19 +10759,19 @@ const _axisDirections = [
     /*@__PURE__*/ new Vector3(-PHI, INV_PHI, 0)
 ];
 /**
-  * This class generates a Prefiltered, Mipmapped Radiance Environment Map
-  * (PMREM) from a cubeMap environment texture. This allows different levels of
-  * blur to be quickly accessed based on material roughness. It is packed into a
-  * special CubeUV format that allows us to perform custom interpolation so that
-  * we can support nonlinear formats such as RGBE. Unlike a traditional mipmap
-  * chain, it only goes down to the LOD_MIN level (above), and then creates extra
-  * even more filtered 'mips' at the same LOD_MIN resolution, associated with
-  * higher roughness levels. In this way we maintain resolution to smoothly
-  * interpolate diffuse lighting while limiting sampling computation.
-  *
-  * Paper: Fast, Accurate Image-Based Lighting
-  * https://drive.google.com/file/d/15y8r_UpKlU9SvV4ILb0C3qCPecS8pvLz/view
- */ class PMREMGenerator {
+ * This class generates a Prefiltered, Mipmapped Radiance Environment Map
+ * (PMREM) from a cubeMap environment texture. This allows different levels of
+ * blur to be quickly accessed based on material roughness. It is packed into a
+ * special CubeUV format that allows us to perform custom interpolation so that
+ * we can support nonlinear formats such as RGBE. Unlike a traditional mipmap
+ * chain, it only goes down to the LOD_MIN level (above), and then creates extra
+ * even more filtered 'mips' at the same LOD_MIN resolution, associated with
+ * higher roughness levels. In this way we maintain resolution to smoothly
+ * interpolate diffuse lighting while limiting sampling computation.
+ *
+ * Paper: Fast, Accurate Image-Based Lighting
+ * https://drive.google.com/file/d/15y8r_UpKlU9SvV4ILb0C3qCPecS8pvLz/view
+*/ class PMREMGenerator {
     constructor(renderer){
         this._renderer = renderer;
         this._pingPongRenderTarget = null;
@@ -11416,12 +10786,12 @@ const _axisDirections = [
         this._compileMaterial(this._blurMaterial);
     }
     /**
-      * Generates a PMREM from a supplied Scene, which can be faster than using an
-      * image if networking bandwidth is low. Optional sigma specifies a blur radius
-      * in radians to be applied to the scene before PMREM generation. Optional near
-      * and far planes ensure the scene is rendered in its entirety (the cubeCamera
-      * is placed at the origin).
-      */ fromScene(scene, sigma = 0, near = 0.1, far = 100) {
+	 * Generates a PMREM from a supplied Scene, which can be faster than using an
+	 * image if networking bandwidth is low. Optional sigma specifies a blur radius
+	 * in radians to be applied to the scene before PMREM generation. Optional near
+	 * and far planes ensure the scene is rendered in its entirety (the cubeCamera
+	 * is placed at the origin).
+	 */ fromScene(scene, sigma = 0, near = 0.1, far = 100) {
         _oldTarget = this._renderer.getRenderTarget();
         this._setSize(256);
         const cubeUVRenderTarget = this._allocateTargets();
@@ -11433,42 +10803,42 @@ const _axisDirections = [
         return cubeUVRenderTarget;
     }
     /**
-      * Generates a PMREM from an equirectangular texture, which can be either LDR
-      * or HDR. The ideal input image size is 1k (1024 x 512),
-      * as this matches best with the 256 x 256 cubemap output.
-      */ fromEquirectangular(equirectangular, renderTarget = null) {
+	 * Generates a PMREM from an equirectangular texture, which can be either LDR
+	 * or HDR. The ideal input image size is 1k (1024 x 512),
+	 * as this matches best with the 256 x 256 cubemap output.
+	 */ fromEquirectangular(equirectangular, renderTarget = null) {
         return this._fromTexture(equirectangular, renderTarget);
     }
     /**
-      * Generates a PMREM from an cubemap texture, which can be either LDR
-      * or HDR. The ideal input cube size is 256 x 256,
-      * as this matches best with the 256 x 256 cubemap output.
-      */ fromCubemap(cubemap, renderTarget = null) {
+	 * Generates a PMREM from an cubemap texture, which can be either LDR
+	 * or HDR. The ideal input cube size is 256 x 256,
+	 * as this matches best with the 256 x 256 cubemap output.
+	 */ fromCubemap(cubemap, renderTarget = null) {
         return this._fromTexture(cubemap, renderTarget);
     }
     /**
-      * Pre-compiles the cubemap shader. You can get faster start-up by invoking this method during
-      * your texture's network fetch for increased concurrency.
-      */ compileCubemapShader() {
+	 * Pre-compiles the cubemap shader. You can get faster start-up by invoking this method during
+	 * your texture's network fetch for increased concurrency.
+	 */ compileCubemapShader() {
         if (this._cubemapMaterial === null) {
             this._cubemapMaterial = _getCubemapMaterial();
             this._compileMaterial(this._cubemapMaterial);
         }
     }
     /**
-      * Pre-compiles the equirectangular shader. You can get faster start-up by invoking this method during
-      * your texture's network fetch for increased concurrency.
-      */ compileEquirectangularShader() {
+	 * Pre-compiles the equirectangular shader. You can get faster start-up by invoking this method during
+	 * your texture's network fetch for increased concurrency.
+	 */ compileEquirectangularShader() {
         if (this._equirectMaterial === null) {
             this._equirectMaterial = _getEquirectMaterial();
             this._compileMaterial(this._equirectMaterial);
         }
     }
     /**
-      * Disposes of the PMREMGenerator's internal memory. Note that PMREMGenerator is a static class,
-      * so you should not need more than one PMREMGenerator object. If you do, calling dispose() on
-      * one of them will cause any others to also become unusable.
-      */ dispose() {
+	 * Disposes of the PMREMGenerator's internal memory. Note that PMREMGenerator is a static class,
+	 * so you should not need more than one PMREMGenerator object. If you do, calling dispose() on
+	 * one of them will cause any others to also become unusable.
+	 */ dispose() {
         this._dispose();
         if (this._cubemapMaterial !== null) this._cubemapMaterial.dispose();
         if (this._equirectMaterial !== null) this._equirectMaterial.dispose();
@@ -11621,12 +10991,12 @@ const _axisDirections = [
         renderer.autoClear = autoClear;
     }
     /**
-      * This is a two-pass Gaussian blur for a cubemap. Normally this is done
-      * vertically and horizontally, but this breaks down on a cube. Here we apply
-      * the blur latitudinally (around the poles), and then longitudinally (towards
-      * the poles) to approximate the orthogonally-separable blur. It is least
-      * accurate at the poles, but still does a decent job.
-      */ _blur(cubeUVRenderTarget, lodIn, lodOut, sigma, poleAxis) {
+	 * This is a two-pass Gaussian blur for a cubemap. Normally this is done
+	 * vertically and horizontally, but this breaks down on a cube. Here we apply
+	 * the blur latitudinally (around the poles), and then longitudinally (towards
+	 * the poles) to approximate the orthogonally-separable blur. It is least
+	 * accurate at the poles, but still does a decent job.
+	 */ _blur(cubeUVRenderTarget, lodIn, lodOut, sigma, poleAxis) {
         const pingPongRenderTarget = this._pingPongRenderTarget;
         this._halfBlur(cubeUVRenderTarget, pingPongRenderTarget, lodIn, lodOut, sigma, 'latitudinal', poleAxis);
         this._halfBlur(pingPongRenderTarget, cubeUVRenderTarget, lodOut, lodOut, sigma, 'longitudinal', poleAxis);
@@ -11803,66 +11173,66 @@ function _getBlurShader(lodMax, width, height) {
         },
         vertexShader: _getCommonVertexShader(),
         fragmentShader: /* glsl */ `
- 
-             precision mediump float;
-             precision mediump int;
- 
-             varying vec3 vOutputDirection;
- 
-             uniform sampler2D envMap;
-             uniform int samples;
-             uniform float weights[ n ];
-             uniform bool latitudinal;
-             uniform float dTheta;
-             uniform float mipInt;
-             uniform vec3 poleAxis;
- 
-             #define ENVMAP_TYPE_CUBE_UV
-             #include <cube_uv_reflection_fragment>
- 
-             vec3 getSample( float theta, vec3 axis ) {
- 
-                 float cosTheta = cos( theta );
-                 // Rodrigues' axis-angle rotation
-                 vec3 sampleDirection = vOutputDirection * cosTheta
-                     + cross( axis, vOutputDirection ) * sin( theta )
-                     + axis * dot( axis, vOutputDirection ) * ( 1.0 - cosTheta );
- 
-                 return bilinearCubeUV( envMap, sampleDirection, mipInt );
- 
-             }
- 
-             void main() {
- 
-                 vec3 axis = latitudinal ? poleAxis : cross( poleAxis, vOutputDirection );
- 
-                 if ( all( equal( axis, vec3( 0.0 ) ) ) ) {
- 
-                     axis = vec3( vOutputDirection.z, 0.0, - vOutputDirection.x );
- 
-                 }
- 
-                 axis = normalize( axis );
- 
-                 gl_FragColor = vec4( 0.0, 0.0, 0.0, 1.0 );
-                 gl_FragColor.rgb += weights[ 0 ] * getSample( 0.0, axis );
- 
-                 for ( int i = 1; i < n; i++ ) {
- 
-                     if ( i >= samples ) {
- 
-                         break;
- 
-                     }
- 
-                     float theta = dTheta * float( i );
-                     gl_FragColor.rgb += weights[ i ] * getSample( -1.0 * theta, axis );
-                     gl_FragColor.rgb += weights[ i ] * getSample( theta, axis );
- 
-                 }
- 
-             }
-         `,
+
+			precision mediump float;
+			precision mediump int;
+
+			varying vec3 vOutputDirection;
+
+			uniform sampler2D envMap;
+			uniform int samples;
+			uniform float weights[ n ];
+			uniform bool latitudinal;
+			uniform float dTheta;
+			uniform float mipInt;
+			uniform vec3 poleAxis;
+
+			#define ENVMAP_TYPE_CUBE_UV
+			#include <cube_uv_reflection_fragment>
+
+			vec3 getSample( float theta, vec3 axis ) {
+
+				float cosTheta = cos( theta );
+				// Rodrigues' axis-angle rotation
+				vec3 sampleDirection = vOutputDirection * cosTheta
+					+ cross( axis, vOutputDirection ) * sin( theta )
+					+ axis * dot( axis, vOutputDirection ) * ( 1.0 - cosTheta );
+
+				return bilinearCubeUV( envMap, sampleDirection, mipInt );
+
+			}
+
+			void main() {
+
+				vec3 axis = latitudinal ? poleAxis : cross( poleAxis, vOutputDirection );
+
+				if ( all( equal( axis, vec3( 0.0 ) ) ) ) {
+
+					axis = vec3( vOutputDirection.z, 0.0, - vOutputDirection.x );
+
+				}
+
+				axis = normalize( axis );
+
+				gl_FragColor = vec4( 0.0, 0.0, 0.0, 1.0 );
+				gl_FragColor.rgb += weights[ 0 ] * getSample( 0.0, axis );
+
+				for ( int i = 1; i < n; i++ ) {
+
+					if ( i >= samples ) {
+
+						break;
+
+					}
+
+					float theta = dTheta * float( i );
+					gl_FragColor.rgb += weights[ i ] * getSample( -1.0 * theta, axis );
+					gl_FragColor.rgb += weights[ i ] * getSample( theta, axis );
+
+				}
+
+			}
+		`,
         blending: NoBlending,
         depthTest: false,
         depthWrite: false
@@ -11879,25 +11249,25 @@ function _getEquirectMaterial() {
         },
         vertexShader: _getCommonVertexShader(),
         fragmentShader: /* glsl */ `
- 
-             precision mediump float;
-             precision mediump int;
- 
-             varying vec3 vOutputDirection;
- 
-             uniform sampler2D envMap;
- 
-             #include <common>
- 
-             void main() {
- 
-                 vec3 outputDirection = normalize( vOutputDirection );
-                 vec2 uv = equirectUv( outputDirection );
- 
-                 gl_FragColor = vec4( texture2D ( envMap, uv ).rgb, 1.0 );
- 
-             }
-         `,
+
+			precision mediump float;
+			precision mediump int;
+
+			varying vec3 vOutputDirection;
+
+			uniform sampler2D envMap;
+
+			#include <common>
+
+			void main() {
+
+				vec3 outputDirection = normalize( vOutputDirection );
+				vec2 uv = equirectUv( outputDirection );
+
+				gl_FragColor = vec4( texture2D ( envMap, uv ).rgb, 1.0 );
+
+			}
+		`,
         blending: NoBlending,
         depthTest: false,
         depthWrite: false
@@ -11916,22 +11286,22 @@ function _getCubemapMaterial() {
         },
         vertexShader: _getCommonVertexShader(),
         fragmentShader: /* glsl */ `
- 
-             precision mediump float;
-             precision mediump int;
- 
-             uniform float flipEnvMap;
- 
-             varying vec3 vOutputDirection;
- 
-             uniform samplerCube envMap;
- 
-             void main() {
- 
-                 gl_FragColor = textureCube( envMap, vec3( flipEnvMap * vOutputDirection.x, vOutputDirection.yz ) );
- 
-             }
-         `,
+
+			precision mediump float;
+			precision mediump int;
+
+			uniform float flipEnvMap;
+
+			varying vec3 vOutputDirection;
+
+			uniform samplerCube envMap;
+
+			void main() {
+
+				gl_FragColor = textureCube( envMap, vec3( flipEnvMap * vOutputDirection.x, vOutputDirection.yz ) );
+
+			}
+		`,
         blending: NoBlending,
         depthTest: false,
         depthWrite: false
@@ -11939,61 +11309,61 @@ function _getCubemapMaterial() {
 }
 function _getCommonVertexShader() {
     return /* glsl */ `
- 
-         precision mediump float;
-         precision mediump int;
- 
-         attribute float faceIndex;
- 
-         varying vec3 vOutputDirection;
- 
-         // RH coordinate system; PMREM face-indexing convention
-         vec3 getDirection( vec2 uv, float face ) {
- 
-             uv = 2.0 * uv - 1.0;
- 
-             vec3 direction = vec3( uv, 1.0 );
- 
-             if ( face == 0.0 ) {
- 
-                 direction = direction.zyx; // ( 1, v, u ) pos x
- 
-             } else if ( face == 1.0 ) {
- 
-                 direction = direction.xzy;
-                 direction.xz *= -1.0; // ( -u, 1, -v ) pos y
- 
-             } else if ( face == 2.0 ) {
- 
-                 direction.x *= -1.0; // ( -u, v, 1 ) pos z
- 
-             } else if ( face == 3.0 ) {
- 
-                 direction = direction.zyx;
-                 direction.xz *= -1.0; // ( -1, v, -u ) neg x
- 
-             } else if ( face == 4.0 ) {
- 
-                 direction = direction.xzy;
-                 direction.xy *= -1.0; // ( -u, -1, v ) neg y
- 
-             } else if ( face == 5.0 ) {
- 
-                 direction.z *= -1.0; // ( u, v, -1 ) neg z
- 
-             }
- 
-             return direction;
- 
-         }
- 
-         void main() {
- 
-             vOutputDirection = getDirection( uv, faceIndex );
-             gl_Position = vec4( position, 1.0 );
- 
-         }
-     `;
+
+		precision mediump float;
+		precision mediump int;
+
+		attribute float faceIndex;
+
+		varying vec3 vOutputDirection;
+
+		// RH coordinate system; PMREM face-indexing convention
+		vec3 getDirection( vec2 uv, float face ) {
+
+			uv = 2.0 * uv - 1.0;
+
+			vec3 direction = vec3( uv, 1.0 );
+
+			if ( face == 0.0 ) {
+
+				direction = direction.zyx; // ( 1, v, u ) pos x
+
+			} else if ( face == 1.0 ) {
+
+				direction = direction.xzy;
+				direction.xz *= -1.0; // ( -u, 1, -v ) pos y
+
+			} else if ( face == 2.0 ) {
+
+				direction.x *= -1.0; // ( -u, v, 1 ) pos z
+
+			} else if ( face == 3.0 ) {
+
+				direction = direction.zyx;
+				direction.xz *= -1.0; // ( -1, v, -u ) neg x
+
+			} else if ( face == 4.0 ) {
+
+				direction = direction.xzy;
+				direction.xy *= -1.0; // ( -u, -1, v ) neg y
+
+			} else if ( face == 5.0 ) {
+
+				direction.z *= -1.0; // ( u, v, -1 ) neg z
+
+			}
+
+			return direction;
+
+		}
+
+		void main() {
+
+			vOutputDirection = getDirection( uv, faceIndex );
+			gl_Position = vec4( position, 1.0 );
+
+		}
+	`;
 }
 function WebGLCubeUVMaps(renderer) {
     let cubeUVmaps = new WeakMap();
@@ -12487,47 +11857,47 @@ function WebGLObjects(gl, geometries, attributes, info) {
     };
 }
 /**
-  * Uniforms of a program.
-  * Those form a tree structure with a special top-level container for the root,
-  * which you get by calling 'new WebGLUniforms( gl, program )'.
-  *
-  *
-  * Properties of inner nodes including the top-level container:
-  *
-  * .seq - array of nested uniforms
-  * .map - nested uniforms by name
-  *
-  *
-  * Methods of all nodes except the top-level container:
-  *
-  * .setValue( gl, value, [textures] )
-  *
-  * 		uploads a uniform value(s)
-  *  	the 'textures' parameter is needed for sampler uniforms
-  *
-  *
-  * Static methods of the top-level container (textures factorizations):
-  *
-  * .upload( gl, seq, values, textures )
-  *
-  * 		sets uniforms in 'seq' to 'values[id].value'
-  *
-  * .seqWithValue( seq, values ) : filteredSeq
-  *
-  * 		filters 'seq' entries with corresponding entry in values
-  *
-  *
-  * Methods of the top-level container (textures factorizations):
-  *
-  * .setValue( gl, name, value, textures )
-  *
-  * 		sets uniform with  name 'name' to 'value'
-  *
-  * .setOptional( gl, obj, prop )
-  *
-  * 		like .set for an optional property of the object
-  *
-  */ const emptyTexture = new Texture();
+ * Uniforms of a program.
+ * Those form a tree structure with a special top-level container for the root,
+ * which you get by calling 'new WebGLUniforms( gl, program )'.
+ *
+ *
+ * Properties of inner nodes including the top-level container:
+ *
+ * .seq - array of nested uniforms
+ * .map - nested uniforms by name
+ *
+ *
+ * Methods of all nodes except the top-level container:
+ *
+ * .setValue( gl, value, [textures] )
+ *
+ * 		uploads a uniform value(s)
+ *  	the 'textures' parameter is needed for sampler uniforms
+ *
+ *
+ * Static methods of the top-level container (textures factorizations):
+ *
+ * .upload( gl, seq, values, textures )
+ *
+ * 		sets uniforms in 'seq' to 'values[id].value'
+ *
+ * .seqWithValue( seq, values ) : filteredSeq
+ *
+ * 		filters 'seq' entries with corresponding entry in values
+ *
+ *
+ * Methods of the top-level container (textures factorizations):
+ *
+ * .setValue( gl, name, value, textures )
+ *
+ * 		sets uniform with  name 'name' to 'value'
+ *
+ * .setOptional( gl, obj, prop )
+ *
+ * 		like .set for an optional property of the object
+ *
+ */ const emptyTexture = new Texture();
 const emptyArrayTexture = new DataArrayTexture();
 const empty3dTexture = new Data3DTexture();
 const emptyCubeTexture = new CubeTexture();
@@ -16813,11 +16183,11 @@ class WebXRManager extends EventDispatcher {
         const cameraLPos = new Vector3();
         const cameraRPos = new Vector3();
         /**
-          * Assumes 2 cameras that are parallel and share an X-axis, and that
-          * the cameras' projection and world matrices have already been set.
-          * And that near and far planes are identical for both cameras.
-          * Visualization of this technique: https://computergraphics.stackexchange.com/a/4765
-          */ function setProjectionFromUnion(camera, cameraL, cameraR) {
+		 * Assumes 2 cameras that are parallel and share an X-axis, and that
+		 * the cameras' projection and world matrices have already been set.
+		 * And that near and far planes are identical for both cameras.
+		 * Visualization of this technique: https://computergraphics.stackexchange.com/a/4765
+		 */ function setProjectionFromUnion(camera, cameraL, cameraR) {
             cameraLPos.setFromMatrixPosition(cameraL.matrixWorld);
             cameraRPos.setFromMatrixPosition(cameraR.matrixWorld);
             const ipd = cameraLPos.distanceTo(cameraRPos);
@@ -17227,9 +16597,9 @@ function WebGLRenderer(parameters1 = {}) {
     // Debug configuration container
     this.debug = {
         /**
-          * Enables error checking and reporting when shader programs are being compiled
-          * @type {boolean}
-          */ checkShaderErrors: true
+		 * Enables error checking and reporting when shader programs are being compiled
+		 * @type {boolean}
+		 */ checkShaderErrors: true
     };
     // clearing
     this.autoClear = true;
@@ -19477,34 +18847,34 @@ class CanvasTexture extends Texture {
 }
 CanvasTexture.prototype.isCanvasTexture = true;
 /**
-  * Extensible curve object.
-  *
-  * Some common of curve methods:
-  * .getPoint( t, optionalTarget ), .getTangent( t, optionalTarget )
-  * .getPointAt( u, optionalTarget ), .getTangentAt( u, optionalTarget )
-  * .getPoints(), .getSpacedPoints()
-  * .getLength()
-  * .updateArcLengths()
-  *
-  * This following curves inherit from THREE.Curve:
-  *
-  * -- 2D curves --
-  * THREE.ArcCurve
-  * THREE.CubicBezierCurve
-  * THREE.EllipseCurve
-  * THREE.LineCurve
-  * THREE.QuadraticBezierCurve
-  * THREE.SplineCurve
-  *
-  * -- 3D curves --
-  * THREE.CatmullRomCurve3
-  * THREE.CubicBezierCurve3
-  * THREE.LineCurve3
-  * THREE.QuadraticBezierCurve3
-  *
-  * A series of curves can be represented as a THREE.CurvePath.
-  *
-  **/ class Curve {
+ * Extensible curve object.
+ *
+ * Some common of curve methods:
+ * .getPoint( t, optionalTarget ), .getTangent( t, optionalTarget )
+ * .getPointAt( u, optionalTarget ), .getTangentAt( u, optionalTarget )
+ * .getPoints(), .getSpacedPoints()
+ * .getLength()
+ * .updateArcLengths()
+ *
+ * This following curves inherit from THREE.Curve:
+ *
+ * -- 2D curves --
+ * THREE.ArcCurve
+ * THREE.CubicBezierCurve
+ * THREE.EllipseCurve
+ * THREE.LineCurve
+ * THREE.QuadraticBezierCurve
+ * THREE.SplineCurve
+ *
+ * -- 3D curves --
+ * THREE.CatmullRomCurve3
+ * THREE.CubicBezierCurve3
+ * THREE.LineCurve3
+ * THREE.QuadraticBezierCurve3
+ *
+ * A series of curves can be represented as a THREE.CurvePath.
+ *
+ **/ class Curve {
     constructor(){
         this.type = 'Curve';
         this.arcLengthDivisions = 200;
@@ -19788,30 +19158,30 @@ class ArcCurve extends EllipseCurve {
 }
 ArcCurve.prototype.isArcCurve = true;
 /**
-  * Centripetal CatmullRom Curve - which is useful for avoiding
-  * cusps and self-intersections in non-uniform catmull rom curves.
-  * http://www.cemyuksel.com/research/catmullrom_param/catmullrom.pdf
-  *
-  * curve.type accepts centripetal(default), chordal and catmullrom
-  * curve.tension is used for catmullrom which defaults to 0.5
-  */ /*
- Based on an optimized c++ solution in
-  - http://stackoverflow.com/questions/9489736/catmull-rom-curve-with-no-cusps-and-no-self-intersections/
-  - http://ideone.com/NoEbVM
- 
- This CubicPoly class could be used for reusing some variables and calculations,
- but for three.js curve use, it could be possible inlined and flatten into a single function call
- which can be placed in CurveUtils.
- */ function CubicPoly() {
+ * Centripetal CatmullRom Curve - which is useful for avoiding
+ * cusps and self-intersections in non-uniform catmull rom curves.
+ * http://www.cemyuksel.com/research/catmullrom_param/catmullrom.pdf
+ *
+ * curve.type accepts centripetal(default), chordal and catmullrom
+ * curve.tension is used for catmullrom which defaults to 0.5
+ */ /*
+Based on an optimized c++ solution in
+ - http://stackoverflow.com/questions/9489736/catmull-rom-curve-with-no-cusps-and-no-self-intersections/
+ - http://ideone.com/NoEbVM
+
+This CubicPoly class could be used for reusing some variables and calculations,
+but for three.js curve use, it could be possible inlined and flatten into a single function call
+which can be placed in CurveUtils.
+*/ function CubicPoly() {
     let c0 = 0, c1 = 0, c2 = 0, c3 = 0;
     /*
-      * Compute coefficients for a cubic polynomial
-      *   p(s) = c0 + c1*s + c2*s^2 + c3*s^3
-      * such that
-      *   p(0) = x0, p(1) = x1
-      *  and
-      *   p'(0) = t0, p'(1) = t1.
-      */ function init(x0, x1, t0, t1) {
+	 * Compute coefficients for a cubic polynomial
+	 *   p(s) = c0 + c1*s + c2*s^2 + c3*s^3
+	 * such that
+	 *   p(0) = x0, p(1) = x1
+	 *  and
+	 *   p'(0) = t0, p'(1) = t1.
+	 */ function init(x0, x1, t0, t1) {
         c0 = x0;
         c1 = t0;
         c2 = -3 * x0 + 3 * x1 - 2 * t0 - t1;
@@ -19936,9 +19306,9 @@ class CatmullRomCurve3 extends Curve {
 }
 CatmullRomCurve3.prototype.isCatmullRomCurve3 = true;
 /**
-  * Bezier Curves formulas obtained from
-  * https://en.wikipedia.org/wiki/B%C3%A9zier_curve
-  */ function CatmullRom(t, p0, p1, p2, p3) {
+ * Bezier Curves formulas obtained from
+ * https://en.wikipedia.org/wiki/B%C3%A9zier_curve
+ */ function CatmullRom(t, p0, p1, p2, p3) {
     const v0 = (p2 - p0) * 0.5;
     const v1 = (p3 - p1) * 0.5;
     const t2 = t * t;
@@ -20280,9 +19650,9 @@ var Curves = /*#__PURE__*/ Object.freeze({
     SplineCurve: SplineCurve
 });
 /**************************************************************
-  *	Curved Path - a curve path is simply a array of connected
-  *  curves, but retains the api of a curve
-  **************************************************************/ class CurvePath extends Curve {
+ *	Curved Path - a curve path is simply a array of connected
+ *  curves, but retains the api of a curve
+ **************************************************************/ class CurvePath extends Curve {
     constructor(){
         super();
         this.type = 'CurvePath';
@@ -21323,8 +20693,8 @@ class Shape extends Path {
     }
 }
 /**
-  * Port from https://github.com/mapbox/earcut (v2.2.2)
-  */ const Earcut = {
+ * Port from https://github.com/mapbox/earcut (v2.2.2)
+ */ const Earcut = {
     triangulate: function(data, holeIndices, dim = 2) {
         const hasHoles = holeIndices && holeIndices.length;
         const outerLen = hasHoles ? holeIndices[0] * dim : data.length;
@@ -21812,26 +21182,26 @@ function addContour(vertices, contour) {
     }
 }
 /**
-  * Creates extruded geometry from a path shape.
-  *
-  * parameters = {
-  *
-  *  curveSegments: <int>, // number of points on the curves
-  *  steps: <int>, // number of points for z-side extrusions / used for subdividing segments of extrude spline too
-  *  depth: <float>, // Depth to extrude the shape
-  *
-  *  bevelEnabled: <bool>, // turn on bevel
-  *  bevelThickness: <float>, // how deep into the original shape bevel goes
-  *  bevelSize: <float>, // how far from shape outline (including bevelOffset) is bevel
-  *  bevelOffset: <float>, // how far from shape outline does bevel start
-  *  bevelSegments: <int>, // number of bevel layers
-  *
-  *  extrudePath: <THREE.Curve> // curve to extrude shape along
-  *
-  *  UVGenerator: <Object> // object that provides UV generator functions
-  *
-  * }
-  */ class ExtrudeGeometry extends BufferGeometry {
+ * Creates extruded geometry from a path shape.
+ *
+ * parameters = {
+ *
+ *  curveSegments: <int>, // number of points on the curves
+ *  steps: <int>, // number of points for z-side extrusions / used for subdividing segments of extrude spline too
+ *  depth: <float>, // Depth to extrude the shape
+ *
+ *  bevelEnabled: <bool>, // turn on bevel
+ *  bevelThickness: <float>, // how deep into the original shape bevel goes
+ *  bevelSize: <float>, // how far from shape outline (including bevelOffset) is bevel
+ *  bevelOffset: <float>, // how far from shape outline does bevel start
+ *  bevelSegments: <int>, // number of bevel layers
+ *
+ *  extrudePath: <THREE.Curve> // curve to extrude shape along
+ *
+ *  UVGenerator: <Object> // object that provides UV generator functions
+ *
+ * }
+ */ class ExtrudeGeometry extends BufferGeometry {
     constructor(shapes = new Shape([
         new Vector2(0.5, 0.5),
         new Vector2(-0.5, 0.5),
@@ -23722,25 +23092,25 @@ const AnimationUtils = {
     }
 };
 /**
-  * Abstract base class of interpolants over parametric samples.
-  *
-  * The parameter domain is one dimensional, typically the time or a path
-  * along a curve defined by the data.
-  *
-  * The sample values can have any dimensionality and derived classes may
-  * apply special interpretations to the data.
-  *
-  * This class provides the interval seek in a Template Method, deferring
-  * the actual interpolation to derived classes.
-  *
-  * Time complexity is O(1) for linear access crossing at most two points
-  * and O(log N) for random access, where N is the number of positions.
-  *
-  * References:
-  *
-  * 		http://www.oodesign.com/template-method-pattern.html
-  *
-  */ class Interpolant {
+ * Abstract base class of interpolants over parametric samples.
+ *
+ * The parameter domain is one dimensional, typically the time or a path
+ * along a curve defined by the data.
+ *
+ * The sample values can have any dimensionality and derived classes may
+ * apply special interpretations to the data.
+ *
+ * This class provides the interval seek in a Template Method, deferring
+ * the actual interpolation to derived classes.
+ *
+ * Time complexity is O(1) for linear access crossing at most two points
+ * and O(log N) for random access, where N is the number of positions.
+ *
+ * References:
+ *
+ * 		http://www.oodesign.com/template-method-pattern.html
+ *
+ */ class Interpolant {
     constructor(parameterPositions, sampleValues, sampleSize, resultBuffer){
         this.parameterPositions = parameterPositions;
         this._cachedIndex = 0;
@@ -23853,12 +23223,12 @@ const AnimationUtils = {
 Interpolant.prototype.beforeStart_ = Interpolant.prototype.copySampleValue_;
 Interpolant.prototype.afterEnd_ = Interpolant.prototype.copySampleValue_;
 /**
-  * Fast and simple cubic spline interpolant.
-  *
-  * It was derived from a Hermitian construction setting the first derivative
-  * at each sample position to the linear slope between neighboring positions
-  * over their parameter interval.
-  */ class CubicInterpolant extends Interpolant {
+ * Fast and simple cubic spline interpolant.
+ *
+ * It was derived from a Hermitian construction setting the first derivative
+ * at each sample position to the linear slope between neighboring positions
+ * over their parameter interval.
+ */ class CubicInterpolant extends Interpolant {
     constructor(parameterPositions, sampleValues, sampleSize, resultBuffer){
         super(parameterPositions, sampleValues, sampleSize, resultBuffer);
         this._weightPrev = -0;
@@ -23934,10 +23304,10 @@ class LinearInterpolant extends Interpolant {
     }
 }
 /**
-  *
-  * Interpolant that evaluates to the sample value at the position preceding
-  * the parameter.
-  */ class DiscreteInterpolant extends Interpolant {
+ *
+ * Interpolant that evaluates to the sample value at the position preceding
+ * the parameter.
+ */ class DiscreteInterpolant extends Interpolant {
     constructor(parameterPositions, sampleValues, sampleSize, resultBuffer){
         super(parameterPositions, sampleValues, sampleSize, resultBuffer);
     }
@@ -24161,8 +23531,8 @@ KeyframeTrack.prototype.TimeBufferType = Float32Array;
 KeyframeTrack.prototype.ValueBufferType = Float32Array;
 KeyframeTrack.prototype.DefaultInterpolation = InterpolateLinear;
 /**
-  * A Track of Boolean keyframe values.
-  */ class BooleanKeyframeTrack extends KeyframeTrack {
+ * A Track of Boolean keyframe values.
+ */ class BooleanKeyframeTrack extends KeyframeTrack {
 }
 BooleanKeyframeTrack.prototype.ValueTypeName = 'bool';
 BooleanKeyframeTrack.prototype.ValueBufferType = Array;
@@ -24170,18 +23540,18 @@ BooleanKeyframeTrack.prototype.DefaultInterpolation = InterpolateDiscrete;
 BooleanKeyframeTrack.prototype.InterpolantFactoryMethodLinear = undefined;
 BooleanKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
 /**
-  * A Track of keyframe values that represent color.
-  */ class ColorKeyframeTrack extends KeyframeTrack {
+ * A Track of keyframe values that represent color.
+ */ class ColorKeyframeTrack extends KeyframeTrack {
 }
 ColorKeyframeTrack.prototype.ValueTypeName = 'color';
 /**
-  * A Track of numeric keyframe values.
-  */ class NumberKeyframeTrack extends KeyframeTrack {
+ * A Track of numeric keyframe values.
+ */ class NumberKeyframeTrack extends KeyframeTrack {
 }
 NumberKeyframeTrack.prototype.ValueTypeName = 'number';
 /**
-  * Spherical linear unit quaternion interpolant.
-  */ class QuaternionLinearInterpolant extends Interpolant {
+ * Spherical linear unit quaternion interpolant.
+ */ class QuaternionLinearInterpolant extends Interpolant {
     constructor(parameterPositions, sampleValues, sampleSize, resultBuffer){
         super(parameterPositions, sampleValues, sampleSize, resultBuffer);
     }
@@ -24193,8 +23563,8 @@ NumberKeyframeTrack.prototype.ValueTypeName = 'number';
     }
 }
 /**
-  * A Track of quaternion keyframe values.
-  */ class QuaternionKeyframeTrack extends KeyframeTrack {
+ * A Track of quaternion keyframe values.
+ */ class QuaternionKeyframeTrack extends KeyframeTrack {
     InterpolantFactoryMethodLinear(result) {
         return new QuaternionLinearInterpolant(this.times, this.values, this.getValueSize(), result);
     }
@@ -24204,8 +23574,8 @@ QuaternionKeyframeTrack.prototype.ValueTypeName = 'quaternion';
 QuaternionKeyframeTrack.prototype.DefaultInterpolation = InterpolateLinear;
 QuaternionKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
 /**
-  * A Track that interpolates Strings
-  */ class StringKeyframeTrack extends KeyframeTrack {
+ * A Track that interpolates Strings
+ */ class StringKeyframeTrack extends KeyframeTrack {
 }
 StringKeyframeTrack.prototype.ValueTypeName = 'string';
 StringKeyframeTrack.prototype.ValueBufferType = Array;
@@ -24213,8 +23583,8 @@ StringKeyframeTrack.prototype.DefaultInterpolation = InterpolateDiscrete;
 StringKeyframeTrack.prototype.InterpolantFactoryMethodLinear = undefined;
 StringKeyframeTrack.prototype.InterpolantFactoryMethodSmooth = undefined;
 /**
-  * A Track of vectored keyframe values.
-  */ class VectorKeyframeTrack extends KeyframeTrack {
+ * A Track of vectored keyframe values.
+ */ class VectorKeyframeTrack extends KeyframeTrack {
 }
 VectorKeyframeTrack.prototype.ValueTypeName = 'vector';
 class AnimationClip {
@@ -24726,10 +24096,10 @@ class AnimationLoader extends Loader {
     }
 }
 /**
-  * Abstract Base class to block based textures loader (dds, pvr, ...)
-  *
-  * Sub classes have to implement the parse() method which will be used in load().
-  */ class CompressedTextureLoader extends Loader {
+ * Abstract Base class to block based textures loader (dds, pvr, ...)
+ *
+ * Sub classes have to implement the parse() method which will be used in load().
+ */ class CompressedTextureLoader extends Loader {
     constructor(manager){
         super(manager);
     }
@@ -24862,10 +24232,10 @@ class CubeTextureLoader extends Loader {
     }
 }
 /**
-  * Abstract Base class to load generic binary textures formats (rgbe, hdr, ...)
-  *
-  * Sub classes have to implement the parse() method which will be used in load().
-  */ class DataTextureLoader extends Loader {
+ * Abstract Base class to load generic binary textures formats (rgbe, hdr, ...)
+ *
+ * Sub classes have to implement the parse() method which will be used in load().
+ */ class DataTextureLoader extends Loader {
     constructor(manager){
         super(manager);
     }
@@ -25269,12 +24639,12 @@ class RectAreaLight extends Light {
 }
 RectAreaLight.prototype.isRectAreaLight = true;
 /**
-  * Primary reference:
-  *   https://graphics.stanford.edu/papers/envmap/envmap.pdf
-  *
-  * Secondary reference:
-  *   https://www.ppsloan.org/publications/StupidSH36.pdf
-  */ // 3-band SH defined by 9 coefficients
+ * Primary reference:
+ *   https://graphics.stanford.edu/papers/envmap/envmap.pdf
+ *
+ * Secondary reference:
+ *   https://www.ppsloan.org/publications/StupidSH36.pdf
+ */ // 3-band SH defined by 9 coefficients
 class SphericalHarmonics3 {
     constructor(){
         this.coefficients = [];
@@ -27073,12 +26443,12 @@ class PropertyBinding {
         else return new PropertyBinding.Composite(root, path, parsedPath);
     }
     /**
-      * Replaces spaces with underscores and removes unsupported characters from
-      * node names, to ensure compatibility with parseTrackName().
-      *
-      * @param {string} name Node name to be sanitized.
-      * @return {string}
-      */ static sanitizeNodeName(name) {
+	 * Replaces spaces with underscores and removes unsupported characters from
+	 * node names, to ensure compatibility with parseTrackName().
+	 *
+	 * @param {string} name Node name to be sanitized.
+	 * @return {string}
+	 */ static sanitizeNodeName(name) {
         return name.replace(/\s/g, '_').replace(_reservedRe, '');
     }
     static parseTrackName(trackName) {
@@ -27371,33 +26741,33 @@ PropertyBinding.prototype.SetterByBindingTypeAndVersioning = [
     ]
 ];
 /**
-  *
-  * A group of objects that receives a shared animation state.
-  *
-  * Usage:
-  *
-  *  - Add objects you would otherwise pass as 'root' to the
-  *    constructor or the .clipAction method of AnimationMixer.
-  *
-  *  - Instead pass this object as 'root'.
-  *
-  *  - You can also add and remove objects later when the mixer
-  *    is running.
-  *
-  * Note:
-  *
-  *    Objects of this class appear as one object to the mixer,
-  *    so cache control of the individual objects must be done
-  *    on the group.
-  *
-  * Limitation:
-  *
-  *  - The animated properties must be compatible among the
-  *    all objects in the group.
-  *
-  *  - A single property can either be controlled through a
-  *    target group or directly, but not both.
-  */ class AnimationObjectGroup {
+ *
+ * A group of objects that receives a shared animation state.
+ *
+ * Usage:
+ *
+ *  - Add objects you would otherwise pass as 'root' to the
+ *    constructor or the .clipAction method of AnimationMixer.
+ *
+ *  - Instead pass this object as 'root'.
+ *
+ *  - You can also add and remove objects later when the mixer
+ *    is running.
+ *
+ * Note:
+ *
+ *    Objects of this class appear as one object to the mixer,
+ *    so cache control of the individual objects must be done
+ *    on the group.
+ *
+ * Limitation:
+ *
+ *  - The animated properties must be compatible among the
+ *    all objects in the group.
+ *
+ *  - A single property can either be controlled through a
+ *    target group or directly, but not both.
+ */ class AnimationObjectGroup {
     constructor(){
         this.uuid = generateUUID();
         // cached objects followed by the active ones
@@ -28410,11 +27780,11 @@ function intersectObject(object, raycaster, intersects10, recursive) {
     }
 }
 /**
-  * Ref: https://en.wikipedia.org/wiki/Spherical_coordinate_system
-  *
-  * The polar angle (phi) is measured from the positive y-axis. The positive y-axis is up.
-  * The azimuthal angle (theta) is measured from the positive z-axis.
-  */ class Spherical {
+ * Ref: https://en.wikipedia.org/wiki/Spherical_coordinate_system
+ *
+ * The polar angle (phi) is measured from the positive y-axis. The positive y-axis is up.
+ * The azimuthal angle (theta) is measured from the positive z-axis.
+ */ class Spherical {
     constructor(radius = 1, phi = 0, theta = 0){
         this.radius = radius;
         this.phi = phi; // polar angle
@@ -28458,8 +27828,8 @@ function intersectObject(object, raycaster, intersects10, recursive) {
     }
 }
 /**
-  * Ref: https://en.wikipedia.org/wiki/Cylindrical_coordinate_system
-  */ class Cylindrical {
+ * Ref: https://en.wikipedia.org/wiki/Cylindrical_coordinate_system
+ */ class Cylindrical {
     constructor(radius = 1, theta = 0, y = 0){
         this.radius = radius; // distance from the origin to a point in the x-z plane
         this.theta = theta; // counterclockwise angle in the x-z plane measured in radians from the positive z-axis
@@ -28802,27 +28172,27 @@ class PointLightHelper extends Mesh {
         this.matrixAutoUpdate = false;
         this.update();
     /*
-     // TODO: delete this comment?
-     const distanceGeometry = new THREE.IcosahedronGeometry( 1, 2 );
-     const distanceMaterial = new THREE.MeshBasicMaterial( { color: hexColor, fog: false, wireframe: true, opacity: 0.1, transparent: true } );
- 
-     this.lightSphere = new THREE.Mesh( bulbGeometry, bulbMaterial );
-     this.lightDistance = new THREE.Mesh( distanceGeometry, distanceMaterial );
- 
-     const d = light.distance;
- 
-     if ( d === 0.0 ) {
- 
-         this.lightDistance.visible = false;
- 
-     } else {
- 
-         this.lightDistance.scale.set( d, d, d );
- 
-     }
- 
-     this.add( this.lightDistance );
-     */ }
+	// TODO: delete this comment?
+	const distanceGeometry = new THREE.IcosahedronGeometry( 1, 2 );
+	const distanceMaterial = new THREE.MeshBasicMaterial( { color: hexColor, fog: false, wireframe: true, opacity: 0.1, transparent: true } );
+
+	this.lightSphere = new THREE.Mesh( bulbGeometry, bulbMaterial );
+	this.lightDistance = new THREE.Mesh( distanceGeometry, distanceMaterial );
+
+	const d = light.distance;
+
+	if ( d === 0.0 ) {
+
+		this.lightDistance.visible = false;
+
+	} else {
+
+		this.lightDistance.scale.set( d, d, d );
+
+	}
+
+	this.add( this.lightDistance );
+	*/ }
     dispose() {
         this.geometry.dispose();
         this.material.dispose();
@@ -28831,19 +28201,19 @@ class PointLightHelper extends Mesh {
         if (this.color !== undefined) this.material.color.set(this.color);
         else this.material.color.copy(this.light.color);
     /*
-         const d = this.light.distance;
- 
-         if ( d === 0.0 ) {
- 
-             this.lightDistance.visible = false;
- 
-         } else {
- 
-             this.lightDistance.visible = true;
-             this.lightDistance.scale.set( d, d, d );
- 
-         }
-         */ }
+		const d = this.light.distance;
+
+		if ( d === 0.0 ) {
+
+			this.lightDistance.visible = false;
+
+		} else {
+
+			this.lightDistance.visible = true;
+			this.lightDistance.scale.set( d, d, d );
+
+		}
+		*/ }
 }
 const _vector$1 = /*@__PURE__*/ new Vector3();
 const _color1 = /*@__PURE__*/ new Color();
@@ -29043,11 +28413,11 @@ class DirectionalLightHelper extends Object3D {
 const _vector = /*@__PURE__*/ new Vector3();
 const _camera = /*@__PURE__*/ new Camera();
 /**
-  *	- shows frustum, line of sight and up of the camera
-  *	- suitable for fast updates
-  * 	- based on frustum visualization in lightgl.js shadowmap example
-  *		https://github.com/evanw/lightgl.js/blob/master/tests/shadowmap.html
-  */ class CameraHelper extends LineSegments {
+ *	- shows frustum, line of sight and up of the camera
+ *	- suitable for fast updates
+ * 	- based on frustum visualization in lightgl.js shadowmap example
+ *		https://github.com/evanw/lightgl.js/blob/master/tests/shadowmap.html
+ */ class CameraHelper extends LineSegments {
     constructor(camera){
         const geometry = new BufferGeometry();
         const material = new LineBasicMaterial({
@@ -29214,20 +28584,20 @@ class BoxHelper extends LineSegments {
         const min = _box.min;
         const max = _box.max;
         /*
-             5____4
-         1/___0/|
-         | 6__|_7
-         2/___3/
- 
-         0: max.x, max.y, max.z
-         1: min.x, max.y, max.z
-         2: min.x, min.y, max.z
-         3: max.x, min.y, max.z
-         4: max.x, max.y, min.z
-         5: min.x, max.y, min.z
-         6: min.x, min.y, min.z
-         7: max.x, min.y, min.z
-         */ const position = this.geometry.attributes.position;
+			5____4
+		1/___0/|
+		| 6__|_7
+		2/___3/
+
+		0: max.x, max.y, max.z
+		1: min.x, max.y, max.z
+		2: min.x, min.y, max.z
+		3: max.x, min.y, max.z
+		4: max.x, max.y, min.z
+		5: min.x, max.y, min.z
+		6: min.x, min.y, min.z
+		7: max.x, min.y, min.z
+		*/ const position = this.geometry.attributes.position;
         const array = position.array;
         array[0] = max.x;
         array[1] = max.y;
@@ -31012,14 +30382,44 @@ if (typeof window !== 'undefined') {
     else window.__THREE__ = REVISION;
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"YjDDi":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"7mqRv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "OrbitControls", ()=>OrbitControls
 );
 parcelHelpers.export(exports, "MapControls", ()=>MapControls
 );
-var _threeModuleJs = require("./three.module.js");
+var _three = require("three");
 // This set of controls performs orbiting, dollying (zooming), and panning.
 // Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
 //
@@ -31027,26 +30427,26 @@ var _threeModuleJs = require("./three.module.js");
 //    Zoom - middle mouse, or mousewheel / touch: two-finger spread or squish
 //    Pan - right mouse, or left mouse + ctrl/meta/shiftKey, or arrow keys / touch: two-finger move
 const _changeEvent = {
-    type: "change"
+    type: 'change'
 };
 const _startEvent = {
-    type: "start"
+    type: 'start'
 };
 const _endEvent = {
-    type: "end"
+    type: 'end'
 };
-class OrbitControls extends _threeModuleJs.EventDispatcher {
+class OrbitControls extends _three.EventDispatcher {
     constructor(object, domElement1){
         super();
         if (domElement1 === undefined) console.warn('THREE.OrbitControls: The second parameter "domElement" is now mandatory.');
         if (domElement1 === document) console.error('THREE.OrbitControls: "document" should not be used as the target "domElement". Please use "renderer.domElement" instead.');
         this.object = object;
         this.domElement = domElement1;
-        this.domElement.style.touchAction = "none"; // disable touch scroll
+        this.domElement.style.touchAction = 'none'; // disable touch scroll
         // Set to false to disable this control
         this.enabled = true;
         // "target" sets the location of focus, where the object orbits around
-        this.target = new _threeModuleJs.Vector3();
+        this.target = new _three.Vector3();
         // How far you can dolly in and out ( PerspectiveCamera only )
         this.minDistance = 0;
         this.maxDistance = Infinity;
@@ -31083,21 +30483,21 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
         this.autoRotateSpeed = 2; // 30 seconds per orbit when fps is 60
         // The four arrow keys
         this.keys = {
-            LEFT: "ArrowLeft",
-            UP: "ArrowUp",
-            RIGHT: "ArrowRight",
-            BOTTOM: "ArrowDown"
+            LEFT: 'ArrowLeft',
+            UP: 'ArrowUp',
+            RIGHT: 'ArrowRight',
+            BOTTOM: 'ArrowDown'
         };
         // Mouse buttons
         this.mouseButtons = {
-            LEFT: _threeModuleJs.MOUSE.ROTATE,
-            MIDDLE: _threeModuleJs.MOUSE.DOLLY,
-            RIGHT: _threeModuleJs.MOUSE.PAN
+            LEFT: _three.MOUSE.ROTATE,
+            MIDDLE: _three.MOUSE.DOLLY,
+            RIGHT: _three.MOUSE.PAN
         };
         // Touch fingers
         this.touches = {
-            ONE: _threeModuleJs.TOUCH.ROTATE,
-            TWO: _threeModuleJs.TOUCH.DOLLY_PAN
+            ONE: _three.TOUCH.ROTATE,
+            TWO: _three.TOUCH.DOLLY_PAN
         };
         // for reset
         this.target0 = this.target.clone();
@@ -31118,7 +30518,7 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
             return this.object.position.distanceTo(this.target);
         };
         this.listenToKeyEvents = function(domElement) {
-            domElement.addEventListener("keydown", onKeyDown);
+            domElement.addEventListener('keydown', onKeyDown);
             this._domElementKeyEvents = domElement;
         };
         this.saveState = function() {
@@ -31137,12 +30537,12 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
         };
         // this method is exposed, but perhaps it would be better if we can make it private...
         this.update = function() {
-            const offset = new _threeModuleJs.Vector3();
+            const offset = new _three.Vector3();
             // so camera.up is the orbit axis
-            const quat = new _threeModuleJs.Quaternion().setFromUnitVectors(object.up, new _threeModuleJs.Vector3(0, 1, 0));
+            const quat = new _three.Quaternion().setFromUnitVectors(object.up, new _three.Vector3(0, 1, 0));
             const quatInverse = quat.clone().invert();
-            const lastPosition = new _threeModuleJs.Vector3();
-            const lastQuaternion = new _threeModuleJs.Quaternion();
+            const lastPosition = new _three.Vector3();
+            const lastQuaternion = new _three.Quaternion();
             const twoPI = 2 * Math.PI;
             return function update() {
                 const position = scope.object.position;
@@ -31207,13 +30607,13 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
             };
         }();
         this.dispose = function() {
-            scope.domElement.removeEventListener("contextmenu", onContextMenu);
-            scope.domElement.removeEventListener("pointerdown", onPointerDown);
-            scope.domElement.removeEventListener("pointercancel", onPointerCancel);
-            scope.domElement.removeEventListener("wheel", onMouseWheel);
-            scope.domElement.removeEventListener("pointermove", onPointerMove);
-            scope.domElement.removeEventListener("pointerup", onPointerUp);
-            if (scope._domElementKeyEvents !== null) scope._domElementKeyEvents.removeEventListener("keydown", onKeyDown);
+            scope.domElement.removeEventListener('contextmenu', onContextMenu);
+            scope.domElement.removeEventListener('pointerdown', onPointerDown);
+            scope.domElement.removeEventListener('pointercancel', onPointerCancel);
+            scope.domElement.removeEventListener('wheel', onMouseWheel);
+            scope.domElement.removeEventListener('pointermove', onPointerMove);
+            scope.domElement.removeEventListener('pointerup', onPointerUp);
+            if (scope._domElementKeyEvents !== null) scope._domElementKeyEvents.removeEventListener('keydown', onKeyDown);
         //scope.dispatchEvent( { type: 'dispose' } ); // should this be added here?
         };
         //
@@ -31233,20 +30633,20 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
         let state = STATE.NONE;
         const EPS = 0.000001;
         // current position in spherical coordinates
-        const spherical = new _threeModuleJs.Spherical();
-        const sphericalDelta = new _threeModuleJs.Spherical();
+        const spherical = new _three.Spherical();
+        const sphericalDelta = new _three.Spherical();
         let scale = 1;
-        const panOffset = new _threeModuleJs.Vector3();
+        const panOffset = new _three.Vector3();
         let zoomChanged = false;
-        const rotateStart = new _threeModuleJs.Vector2();
-        const rotateEnd = new _threeModuleJs.Vector2();
-        const rotateDelta = new _threeModuleJs.Vector2();
-        const panStart = new _threeModuleJs.Vector2();
-        const panEnd = new _threeModuleJs.Vector2();
-        const panDelta = new _threeModuleJs.Vector2();
-        const dollyStart = new _threeModuleJs.Vector2();
-        const dollyEnd = new _threeModuleJs.Vector2();
-        const dollyDelta = new _threeModuleJs.Vector2();
+        const rotateStart = new _three.Vector2();
+        const rotateEnd = new _three.Vector2();
+        const rotateDelta = new _three.Vector2();
+        const panStart = new _three.Vector2();
+        const panEnd = new _three.Vector2();
+        const panDelta = new _three.Vector2();
+        const dollyStart = new _three.Vector2();
+        const dollyEnd = new _three.Vector2();
+        const dollyDelta = new _three.Vector2();
         const pointers = [];
         const pointerPositions = {};
         function getAutoRotationAngle() {
@@ -31262,7 +30662,7 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
             sphericalDelta.phi -= angle;
         }
         const panLeft = function() {
-            const v = new _threeModuleJs.Vector3();
+            const v = new _three.Vector3();
             return function panLeft(distance, objectMatrix) {
                 v.setFromMatrixColumn(objectMatrix, 0); // get X column of objectMatrix
                 v.multiplyScalar(-distance);
@@ -31270,7 +30670,7 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
             };
         }();
         const panUp = function() {
-            const v = new _threeModuleJs.Vector3();
+            const v = new _three.Vector3();
             return function panUp(distance, objectMatrix) {
                 if (scope.screenSpacePanning === true) v.setFromMatrixColumn(objectMatrix, 1);
                 else {
@@ -31283,7 +30683,7 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
         }();
         // deltaX and deltaY are in pixels; right and down are positive
         const pan = function() {
-            const offset = new _threeModuleJs.Vector3();
+            const offset = new _three.Vector3();
             return function pan(deltaX, deltaY) {
                 const element = scope.domElement;
                 if (scope.object.isPerspectiveCamera) {
@@ -31302,7 +30702,7 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
                     panUp(deltaY * (scope.object.top - scope.object.bottom) / scope.object.zoom / element.clientHeight, scope.object.matrix);
                 } else {
                     // camera neither orthographic nor perspective
-                    console.warn("WARNING: OrbitControls.js encountered an unknown camera type - pan disabled.");
+                    console.warn('WARNING: OrbitControls.js encountered an unknown camera type - pan disabled.');
                     scope.enablePan = false;
                 }
             };
@@ -31314,7 +30714,7 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
                 scope.object.updateProjectionMatrix();
                 zoomChanged = true;
             } else {
-                console.warn("WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.");
+                console.warn('WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.');
                 scope.enableZoom = false;
             }
         }
@@ -31325,7 +30725,7 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
                 scope.object.updateProjectionMatrix();
                 zoomChanged = true;
             } else {
-                console.warn("WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.");
+                console.warn('WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.');
                 scope.enableZoom = false;
             }
         }
@@ -31477,25 +30877,25 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
             if (scope.enabled === false) return;
             if (pointers.length === 0) {
                 scope.domElement.setPointerCapture(event.pointerId);
-                scope.domElement.addEventListener("pointermove", onPointerMove);
-                scope.domElement.addEventListener("pointerup", onPointerUp);
+                scope.domElement.addEventListener('pointermove', onPointerMove);
+                scope.domElement.addEventListener('pointerup', onPointerUp);
             }
             //
             addPointer(event);
-            if (event.pointerType === "touch") onTouchStart(event);
+            if (event.pointerType === 'touch') onTouchStart(event);
             else onMouseDown(event);
         }
         function onPointerMove(event) {
             if (scope.enabled === false) return;
-            if (event.pointerType === "touch") onTouchMove(event);
+            if (event.pointerType === 'touch') onTouchMove(event);
             else onMouseMove(event);
         }
         function onPointerUp(event) {
             removePointer(event);
             if (pointers.length === 0) {
                 scope.domElement.releasePointerCapture(event.pointerId);
-                scope.domElement.removeEventListener("pointermove", onPointerMove);
-                scope.domElement.removeEventListener("pointerup", onPointerUp);
+                scope.domElement.removeEventListener('pointermove', onPointerMove);
+                scope.domElement.removeEventListener('pointerup', onPointerUp);
             }
             scope.dispatchEvent(_endEvent);
             state = STATE.NONE;
@@ -31519,12 +30919,12 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
                     mouseAction = -1;
             }
             switch(mouseAction){
-                case _threeModuleJs.MOUSE.DOLLY:
+                case _three.MOUSE.DOLLY:
                     if (scope.enableZoom === false) return;
                     handleMouseDownDolly(event);
                     state = STATE.DOLLY;
                     break;
-                case _threeModuleJs.MOUSE.ROTATE:
+                case _three.MOUSE.ROTATE:
                     if (event.ctrlKey || event.metaKey || event.shiftKey) {
                         if (scope.enablePan === false) return;
                         handleMouseDownPan(event);
@@ -31535,7 +30935,7 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
                         state = STATE.ROTATE;
                     }
                     break;
-                case _threeModuleJs.MOUSE.PAN:
+                case _three.MOUSE.PAN:
                     if (event.ctrlKey || event.metaKey || event.shiftKey) {
                         if (scope.enableRotate === false) return;
                         handleMouseDownRotate(event);
@@ -31584,12 +30984,12 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
             switch(pointers.length){
                 case 1:
                     switch(scope.touches.ONE){
-                        case _threeModuleJs.TOUCH.ROTATE:
+                        case _three.TOUCH.ROTATE:
                             if (scope.enableRotate === false) return;
                             handleTouchStartRotate();
                             state = STATE.TOUCH_ROTATE;
                             break;
-                        case _threeModuleJs.TOUCH.PAN:
+                        case _three.TOUCH.PAN:
                             if (scope.enablePan === false) return;
                             handleTouchStartPan();
                             state = STATE.TOUCH_PAN;
@@ -31600,12 +31000,12 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
                     break;
                 case 2:
                     switch(scope.touches.TWO){
-                        case _threeModuleJs.TOUCH.DOLLY_PAN:
+                        case _three.TOUCH.DOLLY_PAN:
                             if (scope.enableZoom === false && scope.enablePan === false) return;
                             handleTouchStartDollyPan();
                             state = STATE.TOUCH_DOLLY_PAN;
                             break;
-                        case _threeModuleJs.TOUCH.DOLLY_ROTATE:
+                        case _three.TOUCH.DOLLY_ROTATE:
                             if (scope.enableZoom === false && scope.enableRotate === false) return;
                             handleTouchStartDollyRotate();
                             state = STATE.TOUCH_DOLLY_ROTATE;
@@ -31663,7 +31063,7 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
         function trackPointer(event) {
             let position = pointerPositions[event.pointerId];
             if (position === undefined) {
-                position = new _threeModuleJs.Vector2();
+                position = new _three.Vector2();
                 pointerPositions[event.pointerId] = position;
             }
             position.set(event.pageX, event.pageY);
@@ -31673,10 +31073,10 @@ class OrbitControls extends _threeModuleJs.EventDispatcher {
             return pointerPositions[pointer.pointerId];
         }
         //
-        scope.domElement.addEventListener("contextmenu", onContextMenu);
-        scope.domElement.addEventListener("pointerdown", onPointerDown);
-        scope.domElement.addEventListener("pointercancel", onPointerCancel);
-        scope.domElement.addEventListener("wheel", onMouseWheel, {
+        scope.domElement.addEventListener('contextmenu', onContextMenu);
+        scope.domElement.addEventListener('pointerdown', onPointerDown);
+        scope.domElement.addEventListener('pointercancel', onPointerCancel);
+        scope.domElement.addEventListener('wheel', onMouseWheel, {
             passive: false
         });
         // force an update at start
@@ -31694,13 +31094,614 @@ class MapControls extends OrbitControls {
     constructor(object, domElement){
         super(object, domElement);
         this.screenSpacePanning = false; // pan orthogonal to world-space direction camera.up
-        this.mouseButtons.LEFT = _threeModuleJs.MOUSE.PAN;
-        this.mouseButtons.RIGHT = _threeModuleJs.MOUSE.ROTATE;
-        this.touches.ONE = _threeModuleJs.TOUCH.PAN;
-        this.touches.TWO = _threeModuleJs.TOUCH.DOLLY_ROTATE;
+        this.mouseButtons.LEFT = _three.MOUSE.PAN;
+        this.mouseButtons.RIGHT = _three.MOUSE.ROTATE;
+        this.touches.ONE = _three.TOUCH.PAN;
+        this.touches.TWO = _three.TOUCH.DOLLY_ROTATE;
     }
 }
 
-},{"./three.module.js":"bntYB","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["60bsj","JCuyv"], "JCuyv", "parcelRequired038")
+},{"three":"ktPTu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"35dWp":[function(require,module,exports) {
+var _three = require("three");
+(function(t1, o1) {
+    function i1(t) {
+        return Object.prototype.toString.call(t);
+    }
+    const r1 = {
+        isFunction: function() {
+            const e = i1(function() {});
+            return function(t) {
+                return i1(t) === e;
+            };
+        }(),
+        isUndefined (t) {
+            return void 0 === t;
+        }
+    };
+    o1.EventDispatcher.prototype.on = function(t, e) {
+        if (r1.isFunction(e)) return this instanceof o1.Object3D && (this.interactive = !0), this.addEventListener(t, e), this;
+    }, o1.EventDispatcher.prototype.off = function(t, e) {
+        return this.removeEventListener(t, e), this;
+    }, o1.EventDispatcher.prototype.once = function(e, i) {
+        if (r1.isFunction(i)) {
+            const n = (t)=>{
+                i(t), this.off(e, n);
+            };
+            return this.on(e, n), this;
+        }
+    }, o1.EventDispatcher.prototype.emit = function(t, ...e) {
+        if (void 0 !== this._listeners && !r1.isUndefined(this._listeners[t])) {
+            const i = this._listeners[t] || [], n = i.slice(0);
+            for(let t2 = 0; t2 < n.length; t2++)n[t2].apply(this, e);
+            return this;
+        }
+    }, o1.Object3D.prototype.interactive = !1, o1.Object3D.prototype.interactiveChildren = !0, o1.Object3D.prototype.started = !1, Object.defineProperty(o1.Object3D.prototype, "trackedPointers", {
+        get () {
+            return this._trackedPointers || (this._trackedPointers = {}), this._trackedPointers;
+        }
+    }), o1.Object3D.prototype.raycastTest = function(t) {
+        var e = [];
+        return this.raycast(t, e), 0 < e.length && e[0];
+    };
+    class s1 {
+        constructor(){
+            this.global = new o1.Vector2(), this.target = null, this.originalEvent = null, this.identifier = null, this.isPrimary = !1, this.button = 0, this.buttons = 0, this.width = 0, this.height = 0, this.tiltX = 0, this.tiltY = 0, this.pointerType = null, this.pressure = 0, this.rotationAngle = 0, this.twist = 0, this.tangentialPressure = 0;
+        }
+        get pointerId() {
+            return this.identifier;
+        }
+        _copyEvent(t) {
+            t.isPrimary && (this.isPrimary = !0), this.button = t.button, this.buttons = t.buttons, this.width = t.width, this.height = t.height, this.tiltX = t.tiltX, this.tiltY = t.tiltY, this.pointerType = t.pointerType, this.pressure = t.pressure, this.rotationAngle = t.rotationAngle, this.twist = t.twist || 0, this.tangentialPressure = t.tangentialPressure || 0;
+        }
+        _reset() {
+            this.isPrimary = !1;
+        }
+    }
+    class a1 {
+        constructor(){
+            this.stopped = !1, this.target = null, this.currentTarget = null, this.type = null, this.data = null, this.intersects = [];
+        }
+        stopPropagation() {
+            this.stopped = !0;
+        }
+        _reset() {
+            this.stopped = !1, this.currentTarget = null, this.target = null, this.intersects = [];
+        }
+    }
+    class h1 {
+        constructor(t){
+            this._pointerId = t, this._flags = h1.FLAGS.NONE;
+        }
+        _doSet(t, e) {
+            this._flags = e ? this._flags | t : this._flags & ~t;
+        }
+        get pointerId() {
+            return this._pointerId;
+        }
+        get flags() {
+            return this._flags;
+        }
+        set flags(t) {
+            this._flags = t;
+        }
+        get none() {
+            return this._flags === this.constructor.FLAGS.NONE;
+        }
+        get over() {
+            return 0 != (this._flags & this.constructor.FLAGS.OVER);
+        }
+        set over(t) {
+            this._doSet(this.constructor.FLAGS.OVER, t);
+        }
+        get rightDown() {
+            return 0 != (this._flags & this.constructor.FLAGS.RIGHT_DOWN);
+        }
+        set rightDown(t) {
+            this._doSet(this.constructor.FLAGS.RIGHT_DOWN, t);
+        }
+        get leftDown() {
+            return 0 != (this._flags & this.constructor.FLAGS.LEFT_DOWN);
+        }
+        set leftDown(t) {
+            this._doSet(this.constructor.FLAGS.LEFT_DOWN, t);
+        }
+    }
+    h1.FLAGS = Object.freeze({
+        NONE: 0,
+        OVER: 1,
+        LEFT_DOWN: 2,
+        RIGHT_DOWN: 4
+    });
+    const c1 = "MOUSE", n1 = {
+        target: null,
+        data: {
+            global: null
+        }
+    };
+    class e1 extends o1.EventDispatcher {
+        constructor(t, e, i, n){
+            super(), n = n || {}, this.renderer = t, this.scene = e, this.camera = i, this.autoPreventDefault = n.autoPreventDefault || !1, this.interactionFrequency = n.interactionFrequency || 10, this.mouse = new s1(), this.mouse.identifier = c1, this.mouse.global.set(-999999), this.activeInteractionData = {}, this.activeInteractionData[c1] = this.mouse, this.interactionDataPool = [], this.eventData = new a1(), this.interactionDOMElement = null, this.moveWhenInside = !0, this.eventsAdded = !1, this.mouseOverRenderer = !1, this.supportsTouchEvents = "ontouchstart" in window, this.supportsPointerEvents = !!window.PointerEvent, this.onClick = this.onClick.bind(this), this.processClick = this.processClick.bind(this), this.onPointerUp = this.onPointerUp.bind(this), this.processPointerUp = this.processPointerUp.bind(this), this.onPointerCancel = this.onPointerCancel.bind(this), this.processPointerCancel = this.processPointerCancel.bind(this), this.onPointerDown = this.onPointerDown.bind(this), this.processPointerDown = this.processPointerDown.bind(this), this.onPointerMove = this.onPointerMove.bind(this), this.processPointerMove = this.processPointerMove.bind(this), this.onPointerOut = this.onPointerOut.bind(this), this.processPointerOverOut = this.processPointerOverOut.bind(this), this.onPointerOver = this.onPointerOver.bind(this), this.cursorStyles = {
+                default: "inherit",
+                pointer: "pointer"
+            }, this.currentCursorMode = null, this.cursor = null, this.raycaster = new o1.Raycaster(), this._deltaTime = 0, this.setTargetElement(this.renderer.domElement);
+        }
+        hitTest(t, e) {
+            return n1.target = null, n1.data.global = t, e = e || this.scene, this.processInteractive(n1, e, null, !0), n1.target;
+        }
+        setTargetElement(t) {
+            this.removeEvents(), this.interactionDOMElement = t, this.addEvents();
+        }
+        addEvents() {
+            this.interactionDOMElement && !this.eventsAdded && (this.emit("addevents"), this.interactionDOMElement.addEventListener("click", this.onClick, !0), window.navigator.msPointerEnabled ? (this.interactionDOMElement.style["-ms-content-zooming"] = "none", this.interactionDOMElement.style["-ms-touch-action"] = "none") : this.supportsPointerEvents && (this.interactionDOMElement.style["touch-action"] = "none"), this.supportsPointerEvents ? (window.document.addEventListener("pointermove", this.onPointerMove, !0), this.interactionDOMElement.addEventListener("pointerdown", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("pointerleave", this.onPointerOut, !0), this.interactionDOMElement.addEventListener("pointerover", this.onPointerOver, !0), window.addEventListener("pointercancel", this.onPointerCancel, !0), window.addEventListener("pointerup", this.onPointerUp, !0)) : (window.document.addEventListener("mousemove", this.onPointerMove, !0), this.interactionDOMElement.addEventListener("mousedown", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("mouseout", this.onPointerOut, !0), this.interactionDOMElement.addEventListener("mouseover", this.onPointerOver, !0), window.addEventListener("mouseup", this.onPointerUp, !0)), this.supportsTouchEvents && (this.interactionDOMElement.addEventListener("touchstart", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("touchcancel", this.onPointerCancel, !0), this.interactionDOMElement.addEventListener("touchend", this.onPointerUp, !0), this.interactionDOMElement.addEventListener("touchmove", this.onPointerMove, !0)), this.eventsAdded = !0);
+        }
+        removeEvents() {
+            this.interactionDOMElement && (this.emit("removeevents"), this.interactionDOMElement.removeEventListener("click", this.onClick, !0), window.navigator.msPointerEnabled ? (this.interactionDOMElement.style["-ms-content-zooming"] = "", this.interactionDOMElement.style["-ms-touch-action"] = "") : this.supportsPointerEvents && (this.interactionDOMElement.style["touch-action"] = ""), this.supportsPointerEvents ? (window.document.removeEventListener("pointermove", this.onPointerMove, !0), this.interactionDOMElement.removeEventListener("pointerdown", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("pointerleave", this.onPointerOut, !0), this.interactionDOMElement.removeEventListener("pointerover", this.onPointerOver, !0), window.removeEventListener("pointercancel", this.onPointerCancel, !0), window.removeEventListener("pointerup", this.onPointerUp, !0)) : (window.document.removeEventListener("mousemove", this.onPointerMove, !0), this.interactionDOMElement.removeEventListener("mousedown", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("mouseout", this.onPointerOut, !0), this.interactionDOMElement.removeEventListener("mouseover", this.onPointerOver, !0), window.removeEventListener("mouseup", this.onPointerUp, !0)), this.supportsTouchEvents && (this.interactionDOMElement.removeEventListener("touchstart", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("touchcancel", this.onPointerCancel, !0), this.interactionDOMElement.removeEventListener("touchend", this.onPointerUp, !0), this.interactionDOMElement.removeEventListener("touchmove", this.onPointerMove, !0)), this.interactionDOMElement = null, this.eventsAdded = !1);
+        }
+        update({ snippet: t  }) {
+            if (this._deltaTime += t, !(this._deltaTime < this.interactionFrequency) && (this._deltaTime = 0, this.interactionDOMElement)) {
+                if (this.didMove) this.didMove = !1;
+                else {
+                    this.cursor = null;
+                    for(const i in this.activeInteractionData){
+                        var e;
+                        !this.activeInteractionData.hasOwnProperty(i) || (e = this.activeInteractionData[i]).originalEvent && "touch" !== e.pointerType && (e = this.configureInteractionEventForDOMEvent(this.eventData, e.originalEvent, e), this.processInteractive(e, this.scene, this.processPointerOverOut, !0));
+                    }
+                    this.setCursorMode(this.cursor);
+                }
+            }
+        }
+        setCursorMode(t) {
+            if (this.currentCursorMode !== (t = t || "default")) {
+                this.currentCursorMode = t;
+                const e = this.cursorStyles[t];
+                if (e) switch(typeof e){
+                    case "string":
+                        this.interactionDOMElement.style.cursor = e;
+                        break;
+                    case "function":
+                        e(t);
+                        break;
+                    case "object":
+                        Object.assign(this.interactionDOMElement.style, e);
+                }
+                else "string" != typeof t || Object.prototype.hasOwnProperty.call(this.cursorStyles, t) || (this.interactionDOMElement.style.cursor = t);
+            }
+        }
+        triggerEvent(t, e, i) {
+            i.stopped || (i.currentTarget = t, i.type = e, t.emit(e, i), t[e] && t[e](i));
+        }
+        processInteractive(e, t, i, n, o) {
+            if (!t || !t.visible) return !1;
+            let r = !1, s = o = t.interactive || o;
+            if (t.interactiveChildren && t.children) {
+                var a = t.children;
+                for(let t3 = a.length - 1; 0 <= t3; t3--){
+                    var h = a[t3], c = this.processInteractive(e, h, i, n, s);
+                    c && h.parent && (s = !1, c && (e.target && (n = !1), r = !0));
+                }
+            }
+            return o && (n && !e.target && e.intersects[0] && e.intersects[0].object === t && (r = !0), t.interactive && (r && !e.target && (e.data.target = e.target = t), i && i(e, t, !!r))), r;
+        }
+        onClick(t) {
+            if ("click" === t.type) {
+                var e = this.normalizeToPointerData(t);
+                this.autoPreventDefault && e[0].isNormalized && t.preventDefault();
+                var i = this.getInteractionDataForPointerId(e[0]);
+                const n = this.configureInteractionEventForDOMEvent(this.eventData, e[0], i);
+                n.data.originalEvent = t, this.processInteractive(n, this.scene, this.processClick, !0), this.emit("click", n);
+            }
+        }
+        processClick(t, e, i) {
+            i && this.triggerEvent(e, "click", t);
+        }
+        onPointerDown(e) {
+            if (!this.supportsTouchEvents || "touch" !== e.pointerType) {
+                var i = this.normalizeToPointerData(e);
+                this.autoPreventDefault && i[0].isNormalized && e.preventDefault();
+                var n = i.length;
+                for(let t = 0; t < n; t++){
+                    var o = i[t], r = this.getInteractionDataForPointerId(o);
+                    const s = this.configureInteractionEventForDOMEvent(this.eventData, o, r);
+                    s.data.originalEvent = e, this.processInteractive(s, this.scene, this.processPointerDown, !0), this.emit("pointerdown", s), "touch" === o.pointerType ? this.emit("touchstart", s) : "mouse" !== o.pointerType && "pen" !== o.pointerType || (o = 2 === o.button, this.emit(o ? "rightdown" : "mousedown", this.eventData));
+                }
+            }
+        }
+        processPointerDown(t, e, i) {
+            var n = t.data, o = t.data.identifier;
+            i && (e.trackedPointers[o] || (e.trackedPointers[o] = new h1(o)), this.triggerEvent(e, "pointerdown", t), "touch" === n.pointerType ? (e.started = !0, this.triggerEvent(e, "touchstart", t)) : "mouse" !== n.pointerType && "pen" !== n.pointerType || ((n = 2 === n.button) ? e.trackedPointers[o].rightDown = !0 : e.trackedPointers[o].leftDown = !0, this.triggerEvent(e, n ? "rightdown" : "mousedown", t)));
+        }
+        onPointerComplete(e, i, n) {
+            var o = this.normalizeToPointerData(e), r = o.length, s = e.target !== this.interactionDOMElement ? "outside" : "";
+            for(let t = 0; t < r; t++){
+                var a, h = o[t], c = this.getInteractionDataForPointerId(h);
+                const l = this.configureInteractionEventForDOMEvent(this.eventData, h, c);
+                l.data.originalEvent = e, this.processInteractive(l, this.scene, n, i || !s), this.emit(i ? "pointercancel" : `pointerup${s}`, l), "mouse" === h.pointerType || "pen" === h.pointerType ? (a = 2 === h.button, this.emit(a ? `rightup${s}` : `mouseup${s}`, l)) : "touch" === h.pointerType && (this.emit(i ? "touchcancel" : `touchend${s}`, l), this.releaseInteractionDataForPointerId(h.pointerId, c));
+            }
+        }
+        onPointerCancel(t) {
+            this.supportsTouchEvents && "touch" === t.pointerType || this.onPointerComplete(t, !0, this.processPointerCancel);
+        }
+        processPointerCancel(t, e) {
+            var i = t.data, n = t.data.identifier;
+            void 0 !== e.trackedPointers[n] && (delete e.trackedPointers[n], this.triggerEvent(e, "pointercancel", t), "touch" === i.pointerType && this.triggerEvent(e, "touchcancel", t));
+        }
+        onPointerUp(t) {
+            this.supportsTouchEvents && "touch" === t.pointerType || this.onPointerComplete(t, !1, this.processPointerUp);
+        }
+        processPointerUp(t, e, i) {
+            var n = t.data, o = t.data.identifier;
+            const r = e.trackedPointers[o];
+            var s, a = "touch" === n.pointerType;
+            "mouse" !== n.pointerType && "pen" !== n.pointerType || (s = 2 === n.button, n = h1.FLAGS, n = s ? n.RIGHT_DOWN : n.LEFT_DOWN, n = void 0 !== r && r.flags & n, i ? (this.triggerEvent(e, s ? "rightup" : "mouseup", t), n && this.triggerEvent(e, s ? "rightclick" : "leftclick", t)) : n && this.triggerEvent(e, s ? "rightupoutside" : "mouseupoutside", t), r && (s ? r.rightDown = !1 : r.leftDown = !1)), a && e.started && (e.started = !1, this.triggerEvent(e, "touchend", t)), i ? (this.triggerEvent(e, "pointerup", t), r && (this.triggerEvent(e, "pointertap", t), a && (this.triggerEvent(e, "tap", t), r.over = !1))) : r && (this.triggerEvent(e, "pointerupoutside", t), a && this.triggerEvent(e, "touchendoutside", t)), r && r.none && delete e.trackedPointers[o];
+        }
+        onPointerMove(e) {
+            if (!this.supportsTouchEvents || "touch" !== e.pointerType) {
+                var i = this.normalizeToPointerData(e);
+                "mouse" === i[0].pointerType && (this.didMove = !0, this.cursor = null);
+                var n = i.length;
+                for(let t = 0; t < n; t++){
+                    var o = i[t], r = this.getInteractionDataForPointerId(o);
+                    const s = this.configureInteractionEventForDOMEvent(this.eventData, o, r);
+                    s.data.originalEvent = e;
+                    r = "touch" !== o.pointerType || this.moveWhenInside;
+                    this.processInteractive(s, this.scene, this.processPointerMove, r), this.emit("pointermove", s), "touch" === o.pointerType && this.emit("touchmove", s), "mouse" !== o.pointerType && "pen" !== o.pointerType || this.emit("mousemove", s);
+                }
+                "mouse" === i[0].pointerType && this.setCursorMode(this.cursor);
+            }
+        }
+        processPointerMove(t, e, i) {
+            var n = t.data, o = "touch" === n.pointerType, n = "mouse" === n.pointerType || "pen" === n.pointerType;
+            n && this.processPointerOverOut(t, e, i), o && e.started && this.triggerEvent(e, "touchmove", t), this.moveWhenInside && !i || (this.triggerEvent(e, "pointermove", t), n && this.triggerEvent(e, "mousemove", t));
+        }
+        onPointerOut(t) {
+            if (!this.supportsTouchEvents || "touch" !== t.pointerType) {
+                var e = this.normalizeToPointerData(t)[0];
+                "mouse" === e.pointerType && (this.mouseOverRenderer = !1, this.setCursorMode(null));
+                t = this.getInteractionDataForPointerId(e);
+                const i = this.configureInteractionEventForDOMEvent(this.eventData, e, t);
+                i.data.originalEvent = e, this.processInteractive(i, this.scene, this.processPointerOverOut, !1), this.emit("pointerout", i), "mouse" === e.pointerType || "pen" === e.pointerType ? this.emit("mouseout", i) : this.releaseInteractionDataForPointerId(t.identifier);
+            }
+        }
+        processPointerOverOut(t, e, i) {
+            var n = t.data, o = t.data.identifier, n = "mouse" === n.pointerType || "pen" === n.pointerType;
+            let r = e.trackedPointers[o];
+            i && !r && (r = e.trackedPointers[o] = new h1(o)), void 0 !== r && (i && this.mouseOverRenderer ? (r.over || (r.over = !0, this.triggerEvent(e, "pointerover", t), n && this.triggerEvent(e, "mouseover", t)), n && null === this.cursor && (this.cursor = e.cursor)) : r.over && (r.over = !1, this.triggerEvent(e, "pointerout", this.eventData), n && this.triggerEvent(e, "mouseout", t), r.none && delete e.trackedPointers[o]));
+        }
+        onPointerOver(t) {
+            var e = this.normalizeToPointerData(t)[0], t = this.getInteractionDataForPointerId(e);
+            const i = this.configureInteractionEventForDOMEvent(this.eventData, e, t);
+            "mouse" === (i.data.originalEvent = e).pointerType && (this.mouseOverRenderer = !0), this.emit("pointerover", i), "mouse" !== e.pointerType && "pen" !== e.pointerType || this.emit("mouseover", i);
+        }
+        getInteractionDataForPointerId(t) {
+            var e = t.pointerId;
+            let i;
+            return e === c1 || "mouse" === t.pointerType ? i = this.mouse : this.activeInteractionData[e] ? i = this.activeInteractionData[e] : (i = this.interactionDataPool.pop() || new s1(), i.identifier = e, this.activeInteractionData[e] = i), i._copyEvent(t), i;
+        }
+        releaseInteractionDataForPointerId(t) {
+            const e = this.activeInteractionData[t];
+            e && (delete this.activeInteractionData[t], e._reset(), this.interactionDataPool.push(e));
+        }
+        mapPositionToPoint(t, e, i) {
+            let n;
+            n = this.interactionDOMElement.parentElement ? this.interactionDOMElement.getBoundingClientRect() : {
+                x: 0,
+                y: 0,
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0
+            }, t.x = (e - n.left) / n.width * 2 - 1, t.y = 2 * -((i - n.top) / n.height) + 1;
+        }
+        configureInteractionEventForDOMEvent(t, e, i) {
+            return t.data = i, this.mapPositionToPoint(i.global, e.clientX, e.clientY), this.raycaster.setFromCamera(i.global, this.camera), "touch" === e.pointerType && (e.globalX = i.global.x, e.globalY = i.global.y), i.originalEvent = e, t._reset(), t.intersects = this.raycaster.intersectObjects(this.scene.children, !0), t;
+        }
+        normalizeToPointerData(i) {
+            const n = [];
+            if (this.supportsTouchEvents && i instanceof TouchEvent) for(let t = 0, e = i.changedTouches.length; t < e; t++){
+                const o = i.changedTouches[t];
+                void 0 === o.button && (o.button = i.touches.length ? 1 : 0), void 0 === o.buttons && (o.buttons = i.touches.length ? 1 : 0), void 0 === o.isPrimary && (o.isPrimary = 1 === i.touches.length && "touchstart" === i.type), void 0 === o.width && (o.width = o.radiusX || 1), void 0 === o.height && (o.height = o.radiusY || 1), void 0 === o.tiltX && (o.tiltX = 0), void 0 === o.tiltY && (o.tiltY = 0), void 0 === o.pointerType && (o.pointerType = "touch"), void 0 === o.pointerId && (o.pointerId = o.identifier || 0), void 0 === o.pressure && (o.pressure = o.force || 0.5), o.twist = 0, void (o.tangentialPressure = 0) === o.layerX && (o.layerX = o.offsetX = o.clientX), void 0 === o.layerY && (o.layerY = o.offsetY = o.clientY), o.isNormalized = !0, n.push(o);
+            }
+            else !(i instanceof MouseEvent) || this.supportsPointerEvents && i instanceof window.PointerEvent || (void 0 === i.isPrimary && (i.isPrimary = !0), void 0 === i.width && (i.width = 1), void 0 === i.height && (i.height = 1), void 0 === i.tiltX && (i.tiltX = 0), void 0 === i.tiltY && (i.tiltY = 0), void 0 === i.pointerType && (i.pointerType = "mouse"), void 0 === i.pointerId && (i.pointerId = c1), void 0 === i.pressure && (i.pressure = 0.5), i.twist = 0, i.tangentialPressure = 0, i.isNormalized = !0), n.push(i);
+            return n;
+        }
+        destroy() {
+            this.removeEvents(), this.removeAllListeners(), this.renderer = null, this.mouse = null, this.eventData = null, this.interactionDOMElement = null, this.onPointerDown = null, this.processPointerDown = null, this.onPointerUp = null, this.processPointerUp = null, this.onPointerCancel = null, this.processPointerCancel = null, this.onPointerMove = null, this.processPointerMove = null, this.onPointerOut = null, this.processPointerOverOut = null, this.onPointerOver = null, this._tempPoint = null;
+        }
+    }
+    const l1 = "MOUSE", u = {
+        target: null,
+        data: {
+            global: null
+        }
+    };
+    class p extends o1.EventDispatcher {
+        constructor(t, e){
+            super(), e = e || {}, this.renderer = t, this.layer = null, this.autoPreventDefault = e.autoPreventDefault || !1, this.interactionFrequency = e.interactionFrequency || 10, this.mouse = new s1(), this.mouse.identifier = l1, this.mouse.global.set(-999999), this.activeInteractionData = {}, this.activeInteractionData[l1] = this.mouse, this.interactionDataPool = [], this.eventData = new a1(), this.interactionDOMElement = null, this.moveWhenInside = !0, this.eventsAdded = !1, this.mouseOverRenderer = !1, this.supportsTouchEvents = "ontouchstart" in window, this.supportsPointerEvents = !!window.PointerEvent, this.onClick = this.onClick.bind(this), this.processClick = this.processClick.bind(this), this.onPointerUp = this.onPointerUp.bind(this), this.processPointerUp = this.processPointerUp.bind(this), this.onPointerCancel = this.onPointerCancel.bind(this), this.processPointerCancel = this.processPointerCancel.bind(this), this.onPointerDown = this.onPointerDown.bind(this), this.processPointerDown = this.processPointerDown.bind(this), this.onPointerMove = this.onPointerMove.bind(this), this.processPointerMove = this.processPointerMove.bind(this), this.onPointerOut = this.onPointerOut.bind(this), this.processPointerOverOut = this.processPointerOverOut.bind(this), this.onPointerOver = this.onPointerOver.bind(this), this.cursorStyles = {
+                default: "inherit",
+                pointer: "pointer"
+            }, this.currentCursorMode = null, this.cursor = null, this.raycaster = new o1.Raycaster(), this._deltaTime = 0, this.setTargetElement(this.renderer.domElement);
+        }
+        isAble() {
+            return this.layer && this.layer.interactive;
+        }
+        setLayer(t) {
+            this.layer = t;
+        }
+        hitTest(t, e) {
+            return this.isAble() ? (u.target = null, u.data.global = t, e = e || this.layer.scene, this.processInteractive(u, e, null, !0), u.target) : null;
+        }
+        setTargetElement(t) {
+            this.removeEvents(), this.interactionDOMElement = t, this.addEvents();
+        }
+        addEvents() {
+            this.interactionDOMElement && !this.eventsAdded && (this.emit("addevents"), this.interactionDOMElement.addEventListener("click", this.onClick, !0), window.navigator.msPointerEnabled ? (this.interactionDOMElement.style["-ms-content-zooming"] = "none", this.interactionDOMElement.style["-ms-touch-action"] = "none") : this.supportsPointerEvents && (this.interactionDOMElement.style["touch-action"] = "none"), this.supportsPointerEvents ? (window.document.addEventListener("pointermove", this.onPointerMove, !0), this.interactionDOMElement.addEventListener("pointerdown", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("pointerleave", this.onPointerOut, !0), this.interactionDOMElement.addEventListener("pointerover", this.onPointerOver, !0), window.addEventListener("pointercancel", this.onPointerCancel, !0), window.addEventListener("pointerup", this.onPointerUp, !0)) : (window.document.addEventListener("mousemove", this.onPointerMove, !0), this.interactionDOMElement.addEventListener("mousedown", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("mouseout", this.onPointerOut, !0), this.interactionDOMElement.addEventListener("mouseover", this.onPointerOver, !0), window.addEventListener("mouseup", this.onPointerUp, !0)), this.supportsTouchEvents && (this.interactionDOMElement.addEventListener("touchstart", this.onPointerDown, !0), this.interactionDOMElement.addEventListener("touchcancel", this.onPointerCancel, !0), this.interactionDOMElement.addEventListener("touchend", this.onPointerUp, !0), this.interactionDOMElement.addEventListener("touchmove", this.onPointerMove, !0)), this.eventsAdded = !0);
+        }
+        removeEvents() {
+            this.interactionDOMElement && (this.emit("removeevents"), this.interactionDOMElement.removeEventListener("click", this.onClick, !0), window.navigator.msPointerEnabled ? (this.interactionDOMElement.style["-ms-content-zooming"] = "", this.interactionDOMElement.style["-ms-touch-action"] = "") : this.supportsPointerEvents && (this.interactionDOMElement.style["touch-action"] = ""), this.supportsPointerEvents ? (window.document.removeEventListener("pointermove", this.onPointerMove, !0), this.interactionDOMElement.removeEventListener("pointerdown", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("pointerleave", this.onPointerOut, !0), this.interactionDOMElement.removeEventListener("pointerover", this.onPointerOver, !0), window.removeEventListener("pointercancel", this.onPointerCancel, !0), window.removeEventListener("pointerup", this.onPointerUp, !0)) : (window.document.removeEventListener("mousemove", this.onPointerMove, !0), this.interactionDOMElement.removeEventListener("mousedown", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("mouseout", this.onPointerOut, !0), this.interactionDOMElement.removeEventListener("mouseover", this.onPointerOver, !0), window.removeEventListener("mouseup", this.onPointerUp, !0)), this.supportsTouchEvents && (this.interactionDOMElement.removeEventListener("touchstart", this.onPointerDown, !0), this.interactionDOMElement.removeEventListener("touchcancel", this.onPointerCancel, !0), this.interactionDOMElement.removeEventListener("touchend", this.onPointerUp, !0), this.interactionDOMElement.removeEventListener("touchmove", this.onPointerMove, !0)), this.interactionDOMElement = null, this.eventsAdded = !1);
+        }
+        update({ snippet: t  }) {
+            if (this.isAble() && (this._deltaTime += t, !(this._deltaTime < this.interactionFrequency) && (this._deltaTime = 0, this.interactionDOMElement))) {
+                if (this.didMove) this.didMove = !1;
+                else {
+                    this.cursor = null;
+                    for(const i in this.activeInteractionData){
+                        var e;
+                        !this.activeInteractionData.hasOwnProperty(i) || (e = this.activeInteractionData[i]).originalEvent && "touch" !== e.pointerType && (e = this.configureInteractionEventForDOMEvent(this.eventData, e.originalEvent, e), this.processInteractive(e, this.layer.scene, this.processPointerOverOut, !0));
+                    }
+                    this.setCursorMode(this.cursor);
+                }
+            }
+        }
+        setCursorMode(t) {
+            if (this.currentCursorMode !== (t = t || "default")) {
+                this.currentCursorMode = t;
+                const e = this.cursorStyles[t];
+                if (e) switch(typeof e){
+                    case "string":
+                        this.interactionDOMElement.style.cursor = e;
+                        break;
+                    case "function":
+                        e(t);
+                        break;
+                    case "object":
+                        Object.assign(this.interactionDOMElement.style, e);
+                }
+                else "string" != typeof t || Object.prototype.hasOwnProperty.call(this.cursorStyles, t) || (this.interactionDOMElement.style.cursor = t);
+            }
+        }
+        triggerEvent(t, e, i) {
+            i.stopped || (i.currentTarget = t, i.type = e, t.emit(e, i), t[e] && t[e](i));
+        }
+        processInteractive(e, t, i, n, o) {
+            if (!t || !t.visible) return !1;
+            let r = !1, s = o = t.interactive || o;
+            if (t.interactiveChildren && t.children) {
+                var a = t.children;
+                for(let t4 = a.length - 1; 0 <= t4; t4--){
+                    var h = a[t4], c = this.processInteractive(e, h, i, n, s);
+                    c && h.parent && (s = !1, c && (e.target && (n = !1), r = !0));
+                }
+            }
+            return o && (n && !e.target && e.intersects[0] && e.intersects[0].object === t && (r = !0), t.interactive && (r && !e.target && (e.data.target = e.target = t), i && i(e, t, !!r))), r;
+        }
+        onClick(t) {
+            if (this.isAble() && "click" === t.type) {
+                var e = this.normalizeToPointerData(t);
+                this.autoPreventDefault && e[0].isNormalized && t.preventDefault();
+                var i = this.getInteractionDataForPointerId(e[0]);
+                const n = this.configureInteractionEventForDOMEvent(this.eventData, e[0], i);
+                n.data.originalEvent = t, this.processInteractive(n, this.layer.scene, this.processClick, !0), this.emit("click", n);
+            }
+        }
+        processClick(t, e, i) {
+            i && this.triggerEvent(e, "click", t);
+        }
+        onPointerDown(e) {
+            if (this.isAble() && (!this.supportsTouchEvents || "touch" !== e.pointerType)) {
+                var i = this.normalizeToPointerData(e);
+                this.autoPreventDefault && i[0].isNormalized && e.preventDefault();
+                var n = i.length;
+                for(let t = 0; t < n; t++){
+                    var o = i[t], r = this.getInteractionDataForPointerId(o);
+                    const s = this.configureInteractionEventForDOMEvent(this.eventData, o, r);
+                    s.data.originalEvent = e, this.processInteractive(s, this.layer.scene, this.processPointerDown, !0), this.emit("pointerdown", s), "touch" === o.pointerType ? this.emit("touchstart", s) : "mouse" !== o.pointerType && "pen" !== o.pointerType || (o = 2 === o.button, this.emit(o ? "rightdown" : "mousedown", this.eventData));
+                }
+            }
+        }
+        processPointerDown(t, e, i) {
+            var n = t.data, o = t.data.identifier;
+            i && (e.trackedPointers[o] || (e.trackedPointers[o] = new h1(o)), this.triggerEvent(e, "pointerdown", t), "touch" === n.pointerType ? (e.started = !0, this.triggerEvent(e, "touchstart", t)) : "mouse" !== n.pointerType && "pen" !== n.pointerType || ((n = 2 === n.button) ? e.trackedPointers[o].rightDown = !0 : e.trackedPointers[o].leftDown = !0, this.triggerEvent(e, n ? "rightdown" : "mousedown", t)));
+        }
+        onPointerComplete(e, i, n) {
+            var o = this.normalizeToPointerData(e), r = o.length, s = e.target !== this.interactionDOMElement ? "outside" : "";
+            for(let t = 0; t < r; t++){
+                var a, h = o[t], c = this.getInteractionDataForPointerId(h);
+                const l = this.configureInteractionEventForDOMEvent(this.eventData, h, c);
+                l.data.originalEvent = e, this.processInteractive(l, this.layer.scene, n, i || !s), this.emit(i ? "pointercancel" : `pointerup${s}`, l), "mouse" === h.pointerType || "pen" === h.pointerType ? (a = 2 === h.button, this.emit(a ? `rightup${s}` : `mouseup${s}`, l)) : "touch" === h.pointerType && (this.emit(i ? "touchcancel" : `touchend${s}`, l), this.releaseInteractionDataForPointerId(h.pointerId, c));
+            }
+        }
+        onPointerCancel(t) {
+            this.isAble() && (this.supportsTouchEvents && "touch" === t.pointerType || this.onPointerComplete(t, !0, this.processPointerCancel));
+        }
+        processPointerCancel(t, e) {
+            var i = t.data, n = t.data.identifier;
+            void 0 !== e.trackedPointers[n] && (delete e.trackedPointers[n], this.triggerEvent(e, "pointercancel", t), "touch" === i.pointerType && this.triggerEvent(e, "touchcancel", t));
+        }
+        onPointerUp(t) {
+            this.isAble() && (this.supportsTouchEvents && "touch" === t.pointerType || this.onPointerComplete(t, !1, this.processPointerUp));
+        }
+        processPointerUp(t, e, i) {
+            var n = t.data, o = t.data.identifier;
+            const r = e.trackedPointers[o];
+            var s, a = "touch" === n.pointerType;
+            "mouse" !== n.pointerType && "pen" !== n.pointerType || (s = 2 === n.button, n = h1.FLAGS, n = s ? n.RIGHT_DOWN : n.LEFT_DOWN, n = void 0 !== r && r.flags & n, i ? (this.triggerEvent(e, s ? "rightup" : "mouseup", t), n && this.triggerEvent(e, s ? "rightclick" : "leftclick", t)) : n && this.triggerEvent(e, s ? "rightupoutside" : "mouseupoutside", t), r && (s ? r.rightDown = !1 : r.leftDown = !1)), a && e.started && (e.started = !1, this.triggerEvent(e, "touchend", t)), i ? (this.triggerEvent(e, "pointerup", t), r && (this.triggerEvent(e, "pointertap", t), a && (this.triggerEvent(e, "tap", t), r.over = !1))) : r && (this.triggerEvent(e, "pointerupoutside", t), a && this.triggerEvent(e, "touchendoutside", t)), r && r.none && delete e.trackedPointers[o];
+        }
+        onPointerMove(e) {
+            if (this.isAble() && (!this.supportsTouchEvents || "touch" !== e.pointerType)) {
+                var i = this.normalizeToPointerData(e);
+                "mouse" === i[0].pointerType && (this.didMove = !0, this.cursor = null);
+                var n = i.length;
+                for(let t = 0; t < n; t++){
+                    var o = i[t], r = this.getInteractionDataForPointerId(o);
+                    const s = this.configureInteractionEventForDOMEvent(this.eventData, o, r);
+                    s.data.originalEvent = e;
+                    r = "touch" !== o.pointerType || this.moveWhenInside;
+                    this.processInteractive(s, this.layer.scene, this.processPointerMove, r), this.emit("pointermove", s), "touch" === o.pointerType && this.emit("touchmove", s), "mouse" !== o.pointerType && "pen" !== o.pointerType || this.emit("mousemove", s);
+                }
+                "mouse" === i[0].pointerType && this.setCursorMode(this.cursor);
+            }
+        }
+        processPointerMove(t, e, i) {
+            var n = t.data, o = "touch" === n.pointerType, n = "mouse" === n.pointerType || "pen" === n.pointerType;
+            n && this.processPointerOverOut(t, e, i), o && e.started && this.triggerEvent(e, "touchmove", t), this.moveWhenInside && !i || (this.triggerEvent(e, "pointermove", t), n && this.triggerEvent(e, "mousemove", t));
+        }
+        onPointerOut(t) {
+            if (this.isAble() && (!this.supportsTouchEvents || "touch" !== t.pointerType)) {
+                var e = this.normalizeToPointerData(t)[0];
+                "mouse" === e.pointerType && (this.mouseOverRenderer = !1, this.setCursorMode(null));
+                t = this.getInteractionDataForPointerId(e);
+                const i = this.configureInteractionEventForDOMEvent(this.eventData, e, t);
+                i.data.originalEvent = e, this.processInteractive(i, this.layer.scene, this.processPointerOverOut, !1), this.emit("pointerout", i), "mouse" === e.pointerType || "pen" === e.pointerType ? this.emit("mouseout", i) : this.releaseInteractionDataForPointerId(t.identifier);
+            }
+        }
+        processPointerOverOut(t, e, i) {
+            var n = t.data, o = t.data.identifier, n = "mouse" === n.pointerType || "pen" === n.pointerType;
+            let r = e.trackedPointers[o];
+            i && !r && (r = e.trackedPointers[o] = new h1(o)), void 0 !== r && (i && this.mouseOverRenderer ? (r.over || (r.over = !0, this.triggerEvent(e, "pointerover", t), n && this.triggerEvent(e, "mouseover", t)), n && null === this.cursor && (this.cursor = e.cursor)) : r.over && (r.over = !1, this.triggerEvent(e, "pointerout", this.eventData), n && this.triggerEvent(e, "mouseout", t), r.none && delete e.trackedPointers[o]));
+        }
+        onPointerOver(t) {
+            if (this.isAble()) {
+                var e = this.normalizeToPointerData(t)[0], t = this.getInteractionDataForPointerId(e);
+                const i = this.configureInteractionEventForDOMEvent(this.eventData, e, t);
+                "mouse" === (i.data.originalEvent = e).pointerType && (this.mouseOverRenderer = !0), this.emit("pointerover", i), "mouse" !== e.pointerType && "pen" !== e.pointerType || this.emit("mouseover", i);
+            }
+        }
+        getInteractionDataForPointerId(t) {
+            var e = t.pointerId;
+            let i;
+            return e === l1 || "mouse" === t.pointerType ? i = this.mouse : this.activeInteractionData[e] ? i = this.activeInteractionData[e] : (i = this.interactionDataPool.pop() || new s1(), i.identifier = e, this.activeInteractionData[e] = i), i._copyEvent(t), i;
+        }
+        releaseInteractionDataForPointerId(t) {
+            const e = this.activeInteractionData[t];
+            e && (delete this.activeInteractionData[t], e._reset(), this.interactionDataPool.push(e));
+        }
+        mapPositionToPoint(t, e, i) {
+            let n;
+            n = this.interactionDOMElement.parentElement ? this.interactionDOMElement.getBoundingClientRect() : {
+                x: 0,
+                y: 0,
+                left: 0,
+                top: 0,
+                width: 0,
+                height: 0
+            }, t.x = (e - n.left) / n.width * 2 - 1, t.y = 2 * -((i - n.top) / n.height) + 1;
+        }
+        configureInteractionEventForDOMEvent(t, e, i) {
+            return t.data = i, this.mapPositionToPoint(i.global, e.clientX, e.clientY), this.layer && this.layer.interactive && this.raycaster.setFromCamera(i.global, this.layer.camera), "touch" === e.pointerType && (e.globalX = i.global.x, e.globalY = i.global.y), i.originalEvent = e, t._reset(), t.intersects = this.raycaster.intersectObjects(this.scene.children, !0), t;
+        }
+        normalizeToPointerData(i) {
+            const n = [];
+            if (this.supportsTouchEvents && i instanceof TouchEvent) for(let t = 0, e = i.changedTouches.length; t < e; t++){
+                const o = i.changedTouches[t];
+                void 0 === o.button && (o.button = i.touches.length ? 1 : 0), void 0 === o.buttons && (o.buttons = i.touches.length ? 1 : 0), void 0 === o.isPrimary && (o.isPrimary = 1 === i.touches.length && "touchstart" === i.type), void 0 === o.width && (o.width = o.radiusX || 1), void 0 === o.height && (o.height = o.radiusY || 1), void 0 === o.tiltX && (o.tiltX = 0), void 0 === o.tiltY && (o.tiltY = 0), void 0 === o.pointerType && (o.pointerType = "touch"), void 0 === o.pointerId && (o.pointerId = o.identifier || 0), void 0 === o.pressure && (o.pressure = o.force || 0.5), o.twist = 0, void (o.tangentialPressure = 0) === o.layerX && (o.layerX = o.offsetX = o.clientX), void 0 === o.layerY && (o.layerY = o.offsetY = o.clientY), o.isNormalized = !0, n.push(o);
+            }
+            else !(i instanceof MouseEvent) || this.supportsPointerEvents && i instanceof window.PointerEvent || (void 0 === i.isPrimary && (i.isPrimary = !0), void 0 === i.width && (i.width = 1), void 0 === i.height && (i.height = 1), void 0 === i.tiltX && (i.tiltX = 0), void 0 === i.tiltY && (i.tiltY = 0), void 0 === i.pointerType && (i.pointerType = "mouse"), void 0 === i.pointerId && (i.pointerId = l1), void 0 === i.pressure && (i.pressure = 0.5), i.twist = 0, i.tangentialPressure = 0, i.isNormalized = !0), n.push(i);
+            return n;
+        }
+        destroy() {
+            this.removeEvents(), this.removeAllListeners(), this.renderer = null, this.mouse = null, this.eventData = null, this.interactionDOMElement = null, this.onPointerDown = null, this.processPointerDown = null, this.onPointerUp = null, this.processPointerUp = null, this.onPointerCancel = null, this.processPointerCancel = null, this.onPointerMove = null, this.processPointerMove = null, this.onPointerOut = null, this.processPointerOverOut = null, this.onPointerOver = null, this._tempPoint = null;
+        }
+    }
+    !function() {
+        let o = 0;
+        var e2 = [
+            "ms",
+            "moz",
+            "webkit",
+            "o"
+        ];
+        for(let t5 = 0; t5 < e2.length && !window.requestAnimationFrame; ++t5)window.requestAnimationFrame = window[e2[t5] + "RequestAnimationFrame"], window.cancelAnimationFrame = window[e2[t5] + "CancelAnimationFrame"] || window[e2[t5] + "CancelRequestAnimationFrame"];
+        window.requestAnimationFrame || (window.requestAnimationFrame = function(t) {
+            let e = new Date().getTime(), i = Math.max(0, 16 - (e - o));
+            var n = window.setTimeout(function() {
+                t(e + i);
+            }, i);
+            return o = e + i, n;
+        }), window.cancelAnimationFrame || (window.cancelAnimationFrame = function(t) {
+            clearTimeout(t);
+        }), window.RAF = window.requestAnimationFrame, window.CAF = window.cancelAnimationFrame;
+    }();
+    class v extends o1.EventDispatcher {
+        constructor(){
+            super(), this.timer = null, this.started = !1, this.pt = 0, this.snippet = 0, this.start();
+        }
+        start() {
+            if (!this.started) {
+                const t = ()=>{
+                    this.timeline(), this.emit("tick", {
+                        snippet: this.snippet
+                    }), this.timer = RAF(t);
+                };
+                t();
+            }
+        }
+        stop() {
+            CAF(this.timer), this.started = !1;
+        }
+        timeline() {
+            this.snippet = Date.now() - this.pt, (0 === this.pt || 200 < this.snippet) && (this.pt = Date.now(), this.snippet = Date.now() - this.pt), this.pt += this.snippet;
+        }
+    }
+    return _three.InteractionManager = e1, _three.InteractionLayer = p, _three.Interaction = class extends e1 {
+        constructor(t, e, i, n){
+            super(t, e, i, n = Object.assign({
+                autoAttach: !1
+            }, n)), this.ticker = new v(), this.update = this.update.bind(this), this.on("addevents", ()=>{
+                this.ticker.on("tick", this.update);
+            }), this.on("removeevents", ()=>{
+                this.ticker.off("tick", this.update);
+            }), this.setTargetElement(this.renderer.domElement);
+        }
+    }, t1;
+})({}, _three);
+
+},{"three":"ktPTu"}],"11KNn":[function(require,module,exports) {
+module.exports = require('./helpers/bundle-url').getBundleURL('4tORd') + "blue-world.1605d5f5.png" + "?" + Date.now();
+
+},{"./helpers/bundle-url":"lgJ39"}],"lgJ39":[function(require,module,exports) {
+"use strict";
+var bundleURL = {};
+function getBundleURLCached(id) {
+    var value = bundleURL[id];
+    if (!value) {
+        value = getBundleURL();
+        bundleURL[id] = value;
+    }
+    return value;
+}
+function getBundleURL() {
+    try {
+        throw new Error();
+    } catch (err) {
+        var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+        if (matches) // The first two stack frames will be this function and getBundleURLCached.
+        // Use the 3rd one, which will be a runtime in the original bundle.
+        return getBaseURL(matches[2]);
+    }
+    return '/';
+}
+function getBaseURL(url) {
+    return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
+function getOrigin(url) {
+    var matches = ('' + url).match(/(https?|file|ftp):\/\/[^/]+/);
+    if (!matches) throw new Error('Origin not found');
+    return matches[0];
+}
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+exports.getOrigin = getOrigin;
+
+},{}]},["60bsj","JCuyv"], "JCuyv", "parcelRequired038")
 
 //# sourceMappingURL=index.db5c7f49.js.map

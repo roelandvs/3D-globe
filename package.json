@@ -8,7 +8,8 @@
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "build": "parcel build index.html"
+        "build": "parcel build index.html",
+        "dev": "npx parcel index.html"
     },
     "repository": {
         "type": "git",
