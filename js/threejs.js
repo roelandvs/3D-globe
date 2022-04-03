@@ -1,6 +1,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Interaction } from "./threejs/three.interaction.js";
+import earthImage from "../img/blue-world.png";
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
@@ -17,12 +18,12 @@ globe.rotateY(5.2);
 globe.rotateX(0.2);
 
 // Materials
-const texture = new THREE.TextureLoader().load("./blue-world.1605d5f5.png");
+const texture = new THREE.TextureLoader().load(earthImage);
 const material = new THREE.MeshPhongMaterial({
     map: texture,
     transparent: true,
 });
-const blueMaterial = new THREE.MeshBasicMaterial({ color: 0x01cbe1 });
+let blueMaterial = new THREE.MeshBasicMaterial({ color: 0x01cbe1 });
 const greenMaterial = new THREE.MeshBasicMaterial({ color: 0xc7e44f });
 
 // Mesh
@@ -42,7 +43,7 @@ sphere.add(riverItem);
 scene.add(sphere);
 
 // Lights
-const light = new THREE.AmbientLight(0xffffff, 1.1);
+const light = new THREE.AmbientLight(0xffffff, 1.3);
 scene.add(light);
 
 /**
@@ -94,8 +95,9 @@ canvas.style.height = "auto";
 const interaction = new THREE.Interaction(renderer, scene, camera);
 atlanticPatch.cursor = "pointer";
 atlanticPatch.on("click", function (ev) {
-    const body = document.querySelector("body");
-    body.classList.add("atlantic");
+    // const body = document.querySelector("body");
+    // body.classList.add("atlantic");
+    atlanticPatch.material.color.set(0xc7e44f);
 });
 
 /**
