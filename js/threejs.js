@@ -92,7 +92,7 @@ canvas.style.width = "100%";
 canvas.style.height = "auto";
 
 //Interaction
-const interaction = new THREE.Interaction(renderer, scene, camera);
+// const interaction = new THREE.Interaction(renderer, scene, camera);
 atlanticPatch.cursor = "pointer";
 atlanticPatch.on("click", function (ev) {
     // const body = document.querySelector("body");
