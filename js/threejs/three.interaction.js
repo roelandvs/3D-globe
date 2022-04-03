@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import * as THREE from "./three.module.js";
 (function (t, o) {
     "use strict";
     function i(t) {
@@ -1652,6 +1652,7 @@ import * as THREE from "three";
                 (this.pt += this.snippet);
         }
     }
+
     return (
         (THREE.InteractionManager = e),
         (THREE.InteractionLayer = p),

@@ -1,5 +1,5 @@
-import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import * as THREE from "./threejs/three.module.js";
+import { OrbitControls } from "./threejs/OrbitControls.js";
 import { Interaction } from "./threejs/three.interaction.js";
 import earthImage from "../img/blue-world.png";
 
@@ -92,7 +92,7 @@ canvas.style.width = "100%";
 canvas.style.height = "auto";
 
 //Interaction
-// const interaction = new THREE.Interaction(renderer, scene, camera);
+const interaction = new THREE.Interaction(renderer, scene, camera);
 atlanticPatch.cursor = "pointer";
 atlanticPatch.on("click", function (ev) {
     // const body = document.querySelector("body");
