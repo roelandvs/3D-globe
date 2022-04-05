@@ -591,12 +591,22 @@ controls.update();
 canvas.style.width = "100%";
 canvas.style.height = "auto";
 //Interaction
-// const interaction = new THREE.Interaction(renderer, scene, camera);
+const interaction = new _three.Interaction(renderer, scene, camera);
 atlanticPatch.cursor = "pointer";
-atlanticPatch.on("click", function(ev) {
+sphere.cursor = "grab";
+sphere.on("mousedown", ()=>{
+    sphere.cursor = "grabbing";
+});
+sphere.on("mouseup", ()=>{
+    sphere.cursor = "grab";
+});
+atlanticPatch.on("mouseover", function(ev) {
     // const body = document.querySelector("body");
     // body.classList.add("atlantic");
     atlanticPatch.material.color.set(13100111);
+});
+atlanticPatch.on("mouseout", function(ev) {
+    atlanticPatch.material.color.set(117729);
 });
 /**
  * Animate
@@ -613,7 +623,7 @@ atlanticPatch.on("click", function(ev) {
 };
 tick();
 
-},{"three":"ktPTu","three/examples/jsm/controls/OrbitControls":"7mqRv","./threejs/three.interaction.js":"35dWp","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../img/blue-world.png":"11KNn"}],"ktPTu":[function(require,module,exports) {
+},{"three":"ktPTu","three/examples/jsm/controls/OrbitControls":"7mqRv","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./threejs/three.interaction.js":"35dWp","../img/blue-world.png":"11KNn"}],"ktPTu":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "ACESFilmicToneMapping", ()=>ACESFilmicToneMapping

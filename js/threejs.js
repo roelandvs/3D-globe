@@ -93,12 +93,22 @@ canvas.style.width = "100%";
 canvas.style.height = "auto";
 
 //Interaction
-// const interaction = new THREE.Interaction(renderer, scene, camera);
+const interaction = new THREE.Interaction(renderer, scene, camera);
 atlanticPatch.cursor = "pointer";
-atlanticPatch.on("click", function (ev) {
+sphere.cursor = "grab";
+sphere.on("mousedown", () => {
+    sphere.cursor = "grabbing";
+});
+sphere.on("mouseup", () => {
+    sphere.cursor = "grab";
+});
+atlanticPatch.on("mouseover", function (ev) {
     // const body = document.querySelector("body");
     // body.classList.add("atlantic");
     atlanticPatch.material.color.set(0xc7e44f);
+});
+atlanticPatch.on("mouseout", function (ev) {
+    atlanticPatch.material.color.set(0x01cbe1);
 });
 
 /**
