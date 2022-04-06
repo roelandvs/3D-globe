@@ -1,11 +1,19 @@
 import * as THREE from "three";
+import gsap from "gsap";
+
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { Interaction } from "./threejs/three.interaction.js";
+import { Timer } from "./threejs/threeTimer.js";
+
 import earthImage from "../img/blue-world.png";
 // import earthImage from "../img/earth-patches-dim.png";
 
 // Canvas
 const canvas = document.querySelector("canvas.webgl");
+
+//Colors
+const color1 = new THREE.Color("rgb(255, 0, 0)");
+const color2 = new THREE.Color("rgb(255, 255, 0)");
 
 // Scene
 const scene = new THREE.Scene();
@@ -103,23 +111,40 @@ sphere.on("mouseup", () => {
     sphere.cursor = "grab";
 });
 atlanticPatch.on("mouseover", function (ev) {
-    // const body = document.querySelector("body");
-    // body.classList.add("atlantic");
-    atlanticPatch.material.color.set(0xc7e44f);
+    gsap.to(atlanticPatch.scale, { duration: 1, x: 1.2, y: 1.2, z: 1.2 });
+    pauseAnimation = true;
+
+    // gsap.to(atlanticPatch.material.color, 1, {
+    //     r: 255,
+    //     g: 0,
+    //     b: 0,
+    // });
+    // atlanticPatch.material.color.set(0xc7e44f);
 });
 atlanticPatch.on("mouseout", function (ev) {
     atlanticPatch.material.color.set(0x01cbe1);
+    gsap.to(atlanticPatch.scale, { duration: 1, x: 1, y: 1, z: 1 });
+    pauseAnimation = false;
 });
 
 /**
  * Animate
  */
+const timer = new Timer();
+let pauseAnimation = false;
 const tick = () => {
     // Render
     renderer.render(scene, camera);
 
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);
+
+    const elapsedTime = timer.getElapsed();
+
+    // Update objects
+    if (pauseAnimation) timer.reset();
+    sphere.rotation.y = 0.05 * elapsedTime;
+    timer.update();
 
     //Update controls
     controls.update();
