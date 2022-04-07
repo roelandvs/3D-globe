@@ -111,7 +111,7 @@ sphere.on("mouseup", () => {
     sphere.cursor = "grab";
 });
 atlanticPatch.on("mouseover", function (ev) {
-    gsap.to(atlanticPatch.scale, { duration: 1, x: 1.2, y: 1.2, z: 1.2 });
+    gsap.to(atlanticPatch.scale, { duration: 0.5, x: 1.2, y: 1.2, z: 1.2 });
     pauseAnimation = true;
 
     // gsap.to(atlanticPatch.material.color, 1, {
@@ -123,7 +123,7 @@ atlanticPatch.on("mouseover", function (ev) {
 });
 atlanticPatch.on("mouseout", function (ev) {
     atlanticPatch.material.color.set(0x01cbe1);
-    gsap.to(atlanticPatch.scale, { duration: 1, x: 1, y: 1, z: 1 });
+    gsap.to(atlanticPatch.scale, { duration: 0.5, x: 1, y: 1, z: 1 });
     pauseAnimation = false;
 });
 

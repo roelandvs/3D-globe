@@ -608,7 +608,7 @@ sphere.on("mouseup", ()=>{
 });
 atlanticPatch.on("mouseover", function(ev) {
     _gsapDefault.default.to(atlanticPatch.scale, {
-        duration: 1,
+        duration: 0.5,
         x: 1.2,
         y: 1.2,
         z: 1.2
@@ -624,7 +624,7 @@ atlanticPatch.on("mouseover", function(ev) {
 atlanticPatch.on("mouseout", function(ev) {
     atlanticPatch.material.color.set(117729);
     _gsapDefault.default.to(atlanticPatch.scale, {
-        duration: 1,
+        duration: 0.5,
         x: 1,
         y: 1,
         z: 1
